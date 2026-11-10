@@ -2,313 +2,521 @@
 <html lang="tr">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
-<meta name="theme-color" content="#1b1430">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>zyne — Ücretsiz Tarayıcı Oyunları · İndirmeden Hemen Oyna</title>
+<meta name="description" content="zyne'da ücretsiz tarayıcı oyunlarını indirmeden ve üye olmadan anında oyna. Bağımsız yapımcıların HTML5 oyunları; bulmaca, arcade, beceri ve sanal evcil hayvan oyunları telefonda ve bilgisayarda tek tıkla. Kendi oyununu yükle, herkes oynasın.">
+<meta name="keywords" content="ücretsiz oyunlar, tarayıcı oyunları, online oyun, html5 oyunlar, indirmeden oyna, mobil oyunlar, bağımsız oyunlar, oyun yükle, zyne">
+<meta name="author" content="zyne">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://zyne.lol/">
+<meta name="theme-color" content="#0B0B0F">
+<meta name="color-scheme" content="dark">
+<meta name="application-name" content="zyne">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="zyne">
-<title>zyne · oyunlar</title>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="format-detection" content="telephone=no">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="zyne">
+<meta property="og:locale" content="tr_TR">
+<meta property="og:url" content="https://zyne.lol/">
+<meta property="og:title" content="zyne — İndirme yok. Üyelik yok. Sadece oyna.">
+<meta property="og:description" content="Ücretsiz tarayıcı oyunları tek yerde. Telefonda ve bilgisayarda tek tıkla oyna, kendi oyununu yükle.">
+<meta property="og:image" content="https://zyne.lol/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="zyne — ücretsiz tarayıcı oyunları">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="zyne — İndirme yok. Üyelik yok. Sadece oyna.">
+<meta name="twitter:description" content="Ücretsiz tarayıcı oyunları tek yerde. Tek tıkla oyna, kendi oyununu yükle.">
+<meta name="twitter:image" content="https://zyne.lol/og.jpg">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
+<link rel="manifest" href="/manifest.webmanifest">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://zyne.lol/#site","url":"https://zyne.lol/","name":"zyne","alternateName":"zyne oyunlar","description":"Ücretsiz tarayıcı oyunları. İndirmeden ve üye olmadan anında oyna.","inLanguage":"tr-TR","publisher":{"@id":"https://zyne.lol/#org"}},{"@type":"Organization","@id":"https://zyne.lol/#org","name":"zyne","url":"https://zyne.lol/","logo":"https://zyne.lol/icon-512.png"}]}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script>
-/* ================== AYARLAR ==================
-   Supabase kurulumundan sonra bu üç satırı doldur.
-   Boş bırakırsan site "deneme modunda" çalışır (her şey sadece bu cihazda saklanır). */
 const CONFIG={
   SUPABASE_URL:'https://aetczacvlneggnzkqtov.supabase.co',
   SUPABASE_ANON_KEY:'sb_publishable_-XzaentER4aJqBjHUnEElg_yk0ZWgv4',
-  ADMIN_EMAIL:''            // yöneticiler Supabase'deki 'admins' tablosundan okunur
+  ADMIN_EMAIL:''  // yöneticiler Supabase'deki 'admins' tablosundan okunur
 };
 </script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
-:root{--bg1:#2a1b4d;--bg2:#5b2a6e;--glass:rgba(255,255,255,.14);--glass2:rgba(255,255,255,.22);--txt:#fff;--sub:rgba(255,255,255,.72);--pink:#ff7fb0;--sheet:#fbf7ff;--ink:#2a2140;--muted:#7c7194;--line:#ece4f7;--safe-t:env(safe-area-inset-top,0px);--safe-b:env(safe-area-inset-bottom,0px)}
+:root{--bg:#0B0B0F;--bg2:#111117;--card:#15151C;--card2:#1B1B24;--line:#24242E;--line2:#2E2E3A;--txt:#F3F3F5;--mut:#8B8B98;--mut2:#5F5F6C;--acc:#D4FF3A;--ink:#0B0B0F;--red:#FF5470;--r:18px;--disp:'Bricolage Grotesque',system-ui,sans-serif;--body:Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;--st:env(safe-area-inset-top,0px);--sb:env(safe-area-inset-bottom,0px)}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{margin:0;height:100%;background:#120c22;font-family:system-ui,-apple-system,"SF Pro Rounded","Segoe UI",Roboto,sans-serif;color:var(--txt);overflow:hidden;overscroll-behavior:none}
-button,input,textarea{font:inherit}
-#stage{position:fixed;inset:0;display:flex;align-items:center;justify-content:center}
-#phone{position:relative;width:100%;height:100%;overflow:hidden;background:radial-gradient(120% 70% at 10% 0%,#ff9ac8 0%,transparent 55%),radial-gradient(90% 60% at 100% 30%,#8b7bff 0%,transparent 60%),radial-gradient(100% 80% at 50% 110%,#ff8a6b 0%,transparent 55%),linear-gradient(160deg,var(--bg1),var(--bg2))}
-@media (min-width:700px) and (min-height:700px){#phone{width:400px;height:min(860px,94vh);border-radius:54px;box-shadow:0 0 0 12px #0d0918,0 0 0 14px #3a2d55,0 40px 120px rgba(0,0,0,.6)}#phone::before{content:"";position:absolute;top:10px;left:50%;transform:translateX(-50%);width:120px;height:32px;background:#000;border-radius:20px;z-index:50}}
-.blob{position:absolute;border-radius:50%;filter:blur(40px);opacity:.45;pointer-events:none}
-#status{position:absolute;top:0;left:0;right:0;height:calc(44px + var(--safe-t));padding:calc(12px + var(--safe-t)) 26px 0;display:flex;justify-content:space-between;font-weight:700;font-size:15px;z-index:20;pointer-events:none}
-#status .r{display:flex;gap:6px;align-items:center}
-#home{position:absolute;inset:0;padding:calc(60px + var(--safe-t)) 18px calc(120px + var(--safe-b));overflow-y:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
-#home::-webkit-scrollbar{display:none}
-.hello{font-size:15px;color:var(--sub);margin:4px 4px 2px}
-.brand{font-size:40px;font-weight:900;letter-spacing:-1px;margin:0 4px 14px;display:flex;align-items:center;gap:10px}
-.brand i{font-style:normal;font-size:12px;font-weight:700;background:var(--glass2);padding:4px 10px;border-radius:99px;letter-spacing:0}
-.search{display:flex;align-items:center;gap:8px;background:var(--glass);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-radius:16px;padding:10px 14px;margin-bottom:16px;border:1px solid rgba(255,255,255,.12)}
-.search input{flex:1;background:none;border:0;outline:0;color:#fff;font-size:16px}
-.search input::placeholder{color:var(--sub)}
-.chips{display:flex;gap:8px;margin:0 2px 16px;overflow-x:auto;scrollbar-width:none}
-.chip{flex:none;padding:7px 14px;border-radius:99px;background:var(--glass);border:1px solid rgba(255,255,255,.12);color:#fff;font-weight:700;font-size:13px;cursor:pointer}
-.chip.on{background:#fff;color:var(--ink)}
-.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px 10px}
-.app{display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;animation:pop .4s both}
-@keyframes pop{from{opacity:0;transform:scale(.6)}to{opacity:1;transform:none}}
-.ic{width:64px;height:64px;border-radius:18px;display:flex;align-items:center;justify-content:center;font-size:34px;box-shadow:0 8px 18px rgba(20,8,40,.35),inset 0 1px 0 rgba(255,255,255,.45);position:relative;overflow:hidden;transition:transform .15s}
-.ic::after{content:"";position:absolute;inset:0;background:linear-gradient(160deg,rgba(255,255,255,.35),transparent 45%);pointer-events:none}
-.ic img{width:100%;height:100%;object-fit:cover}
-.app:active .ic{transform:scale(.9)}
-.app .nm{font-size:12px;font-weight:600;text-align:center;max-width:76px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-shadow:0 1px 3px rgba(0,0,0,.35)}
-.app .new{position:absolute;top:-4px;right:-4px;background:#ff4f6e;font-size:10px;font-weight:800;padding:2px 6px;border-radius:99px;z-index:2}
-.icw{position:relative}
-.sec{font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--sub);margin:22px 4px 12px}
-.empty{background:var(--glass);border-radius:24px;padding:28px 20px;text-align:center;color:var(--sub);line-height:1.5}
-.empty b{display:block;color:#fff;font-size:18px;margin-bottom:6px}
-.banner{background:rgba(255,214,102,.18);border:1px solid rgba(255,214,102,.5);color:#ffe9a8;border-radius:16px;padding:10px 14px;font-size:13px;margin-bottom:14px;line-height:1.4}
-#dock{position:absolute;left:12px;right:12px;bottom:calc(12px + var(--safe-b));height:84px;border-radius:30px;background:rgba(255,255,255,.18);backdrop-filter:blur(24px) saturate(1.4);-webkit-backdrop-filter:blur(24px) saturate(1.4);border:1px solid rgba(255,255,255,.2);display:flex;justify-content:space-around;align-items:center;z-index:20}
-.dk{display:flex;flex-direction:column;align-items:center;gap:4px;background:none;border:0;color:#fff;cursor:pointer;font-size:11px;font-weight:700}
-.dk .ic{width:52px;height:52px;border-radius:15px;font-size:24px}
-.dk:active .ic{transform:scale(.9)}
-/* sayfa / sheet */
-#veil{position:absolute;inset:0;background:rgba(10,4,25,.45);opacity:0;pointer-events:none;transition:opacity .25s;z-index:30}
-#veil.on{opacity:1;pointer-events:auto}
-#sheet{position:absolute;left:0;right:0;bottom:0;max-height:92%;background:var(--sheet);color:var(--ink);border-radius:30px 30px 0 0;transform:translateY(105%);transition:transform .32s cubic-bezier(.2,.9,.25,1);z-index:31;display:flex;flex-direction:column;padding-bottom:var(--safe-b)}
-#sheet.on{transform:none}
-#sheet .grab{width:44px;height:5px;border-radius:9px;background:#d9cfe8;margin:10px auto 4px;flex:none}
-#sheet .body{overflow-y:auto;padding:6px 22px 26px;-webkit-overflow-scrolling:touch}
-#sheet h2{margin:8px 0 4px;font-size:24px}
-#sheet p.s{margin:0 0 16px;color:var(--muted);font-size:14px;line-height:1.45}
-label.f{display:block;font-size:13px;font-weight:700;color:var(--muted);margin:14px 0 6px}
-.in{width:100%;padding:13px 14px;border-radius:14px;border:2px solid var(--line);background:#fff;color:var(--ink);font-size:16px;outline:none}
-.in:focus{border-color:#c7a6ff}
-textarea.in{min-height:80px;resize:vertical}
-.btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:15px;border:0;border-radius:16px;background:linear-gradient(135deg,#ff7fb0,#a77bff);color:#fff;font-weight:800;font-size:16px;cursor:pointer;margin-top:18px;box-shadow:0 8px 20px rgba(167,123,255,.35)}
-.btn:disabled{opacity:.55}
-.btn.ghost{background:#efe8fa;color:var(--ink);box-shadow:none}
-.btn.red{background:#ffe3e8;color:#d6284d;box-shadow:none}
-.row{display:flex;gap:10px}
-.tabs{display:flex;background:#efe8fa;border-radius:14px;padding:4px;margin:8px 0 6px}
-.tabs button{flex:1;border:0;background:none;padding:10px;border-radius:11px;font-weight:800;color:var(--muted);cursor:pointer}
-.tabs button.on{background:#fff;color:var(--ink);box-shadow:0 2px 8px rgba(80,40,140,.12)}
-.drop{display:block;border:2px dashed #cdb8f2;border-radius:18px;padding:20px;text-align:center;color:var(--muted);cursor:pointer;background:#fff}
-.drop b{color:var(--ink)}
-.emojis{display:grid;grid-template-columns:repeat(8,1fr);gap:6px}
-.emojis button{aspect-ratio:1;border:2px solid transparent;border-radius:12px;background:#fff;font-size:22px;cursor:pointer;padding:0}
-.emojis button.on{border-color:#a77bff}
-.swatches{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
-.swatches button{width:32px;height:32px;border-radius:50%;border:3px solid #fff;box-shadow:0 0 0 2px var(--line);cursor:pointer}
-.swatches button.on{box-shadow:0 0 0 3px #a77bff}
-.pv{display:flex;align-items:center;gap:14px;background:#fff;border-radius:18px;padding:12px;margin-top:10px}
-.pv .ic{box-shadow:0 6px 14px rgba(60,20,100,.25)}
-.mine{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}
-.mine .ic{width:48px;height:48px;border-radius:14px;font-size:26px;flex:none}
-.mine .t{flex:1;min-width:0}
-.mine .t b{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.mine .t small{color:var(--muted)}
-.sm{border:0;border-radius:12px;padding:9px 12px;font-weight:800;cursor:pointer;background:#efe8fa;color:var(--ink)}
-.sm.red{background:#ffe3e8;color:#d6284d}
-.info{display:flex;gap:16px;align-items:center;margin:6px 0 14px}
-.info .ic{width:84px;height:84px;border-radius:22px;font-size:46px;flex:none}
-.meta{color:var(--muted);font-size:13px;margin-top:4px}
-.err{color:#d6284d;font-size:14px;margin-top:10px;min-height:18px}
-/* oyun penceresi */
-#app{position:absolute;inset:0;background:#000;z-index:40;opacity:0;transform:scale(.25);pointer-events:none;transition:transform .35s cubic-bezier(.2,.9,.25,1),opacity .25s;border-radius:40px;overflow:hidden}
-#app.on{opacity:1;transform:none;pointer-events:auto;border-radius:0}
-#app iframe{position:absolute;inset:0;width:100%;height:100%;border:0;background:#111}
-#splash{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;background:#1b1430;transition:opacity .3s;z-index:2}
-#splash .ic{width:96px;height:96px;border-radius:26px;font-size:52px;animation:bob 1s infinite alternate ease-in-out}
-@keyframes bob{to{transform:translateY(-8px)}}
-#fab{position:absolute;right:10px;top:40%;width:48px;height:48px;border-radius:50%;background:rgba(30,20,50,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:2px solid rgba(255,255,255,.55);z-index:5;touch-action:none;display:flex;align-items:center;justify-content:center;cursor:grab;opacity:.75}
-#fab::before{content:"";width:22px;height:22px;border-radius:50%;background:rgba(255,255,255,.85)}
-#fmenu{position:absolute;z-index:6;background:rgba(30,20,50,.85);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-radius:20px;padding:8px;display:none;min-width:170px}
-#fmenu button{display:block;width:100%;text-align:left;background:none;border:0;color:#fff;padding:12px 14px;font-weight:700;border-radius:12px;cursor:pointer;font-size:15px}
-#fmenu button:active{background:rgba(255,255,255,.15)}
-#toast{position:absolute;left:50%;top:calc(56px + var(--safe-t));transform:translate(-50%,-20px);background:rgba(20,10,40,.85);backdrop-filter:blur(12px);padding:11px 18px;border-radius:99px;font-weight:700;font-size:14px;opacity:0;transition:.25s;z-index:60;pointer-events:none;white-space:nowrap;max-width:90%;overflow:hidden;text-overflow:ellipsis}
-#toast.on{opacity:1;transform:translate(-50%,0)}
-.spin{width:22px;height:22px;border:3px solid rgba(255,255,255,.4);border-top-color:#fff;border-radius:50%;animation:sp 1s linear infinite}
+html{background:var(--bg)}
+body{margin:0;background:var(--bg);color:var(--txt);font-family:var(--body);font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased;min-height:100vh}
+body.lock{overflow:hidden}
+a{color:inherit;text-decoration:none}
+button,input,textarea{font:inherit;color:inherit}
+button{cursor:pointer;border:0;background:none;padding:0}
+svg{display:block}
+.wrap{max-width:1280px;margin:0 auto;padding:0 32px}
+/* header */
+header.top{position:sticky;top:0;z-index:30;background:rgba(11,11,15,.82);backdrop-filter:saturate(1.4) blur(16px);-webkit-backdrop-filter:saturate(1.4) blur(16px);border-bottom:1px solid var(--line);padding-top:var(--st)}
+.hd{display:flex;align-items:center;gap:28px;height:68px}
+.logo{display:flex;align-items:center;gap:10px;font-family:var(--disp);font-weight:800;font-size:26px;letter-spacing:-1px;flex:none}
+.logo img{width:34px;height:34px;border-radius:9px}
+nav.links{display:flex;gap:4px}
+nav.links button{padding:8px 14px;border-radius:10px;color:var(--mut);font-weight:600;font-size:14px;transition:.15s}
+nav.links button:hover{color:var(--txt);background:var(--card)}
+nav.links button.on{color:var(--txt);background:var(--card2)}
+.search{flex:1;max-width:420px;display:flex;align-items:center;gap:10px;height:42px;padding:0 14px;border-radius:12px;background:var(--card);border:1px solid var(--line);transition:.15s;margin-left:auto}
+.search:focus-within{border-color:var(--line2);background:var(--card2)}
+.search input{flex:1;min-width:0;background:none;border:0;outline:0;font-size:14px}
+.search input::placeholder{color:var(--mut2)}
+.search kbd{font-family:var(--body);font-size:11px;color:var(--mut2);border:1px solid var(--line2);border-radius:6px;padding:1px 6px}
+.hact{display:flex;align-items:center;gap:10px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:42px;padding:0 18px;border-radius:12px;font-weight:700;font-size:14px;white-space:nowrap;transition:transform .12s,background .15s,opacity .15s}
+.btn:active{transform:scale(.97)}
+.btn.acc{background:var(--acc);color:var(--ink)}
+.btn.acc:hover{background:#e1ff6a}
+.btn.sec{background:var(--card2);border:1px solid var(--line2)}
+.btn.sec:hover{background:#22222c}
+.btn.dng{background:rgba(255,84,112,.12);color:var(--red)}
+.btn.lg{height:52px;padding:0 26px;font-size:15px;border-radius:14px}
+.btn.full{width:100%}
+.btn:disabled{opacity:.5;pointer-events:none}
+.ibtn{width:42px;height:42px;border-radius:12px;display:inline-flex;align-items:center;justify-content:center;background:var(--card);border:1px solid var(--line);transition:.15s;flex:none}
+.ibtn:hover{background:var(--card2)}
+.av{width:38px;height:38px;border-radius:50%;background:var(--acc);color:var(--ink);font-weight:800;display:flex;align-items:center;justify-content:center;font-family:var(--disp);font-size:16px;flex:none}
+.monly{display:none!important}
+#msearch{display:none}
+/* hero */
+.hero{position:relative;margin:28px 0 8px;border-radius:28px;overflow:hidden;border:1px solid var(--line);background:var(--bg2);min-height:380px;display:grid;grid-template-columns:1fr 1.15fr;isolation:isolate}
+.hero .bgimg{position:absolute;inset:-40px;background-size:cover;background-position:center;filter:blur(40px) saturate(1.3);opacity:.35;z-index:-1}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,var(--bg2) 15%,rgba(17,17,23,.6) 55%,transparent);z-index:-1}
+.hero .ht{padding:48px;display:flex;flex-direction:column;justify-content:center;gap:16px}
+.tag{display:inline-flex;align-items:center;gap:6px;align-self:flex-start;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--acc);background:rgba(212,255,58,.1);border:1px solid rgba(212,255,58,.25);padding:5px 10px;border-radius:99px}
+.hero h1{font-family:var(--disp);font-weight:800;font-size:clamp(34px,4.4vw,56px);line-height:1;letter-spacing:-.03em;margin:0}
+.hero p{color:var(--mut);margin:0;max-width:440px;font-size:16px}
+.hero .by{display:flex;align-items:center;gap:10px;color:var(--mut);font-size:14px}
+.hero .by img{width:36px;height:36px;border-radius:10px}
+.hero .hb{display:flex;gap:10px;margin-top:6px}
+.hero .hc{padding:32px 32px 32px 0;display:flex;align-items:center}
+.hero .hc .cv{width:100%;aspect-ratio:16/10;border-radius:20px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.08);cursor:pointer;transition:transform .3s}
+.hero .hc .cv:hover{transform:scale(1.015)}
+.cv img{width:100%;height:100%;object-fit:cover;display:block}
+.hero.intro{grid-template-columns:1fr;min-height:320px;background:radial-gradient(500px 300px at 85% 0%,rgba(212,255,58,.14),transparent 70%),var(--bg2)}
+.hero.intro::after{display:none}
+.hero.intro h1{font-size:clamp(40px,6vw,76px)}
+.hero.intro h1 span{color:var(--acc)}
+/* sections */
+.sh{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin:40px 0 16px}
+.sh h2{font-family:var(--disp);font-weight:800;font-size:28px;letter-spacing:-.02em;margin:0}
+.tabs{display:flex;gap:6px;background:var(--card);border:1px solid var(--line);padding:4px;border-radius:12px}
+.tabs button{padding:7px 14px;border-radius:9px;font-size:13px;font-weight:600;color:var(--mut)}
+.tabs button.on{background:var(--card2);color:var(--txt);box-shadow:0 1px 0 rgba(255,255,255,.04) inset}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(232px,1fr));gap:22px}
+.card{display:block;cursor:pointer;animation:fade .4s both}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.card .cv{position:relative;aspect-ratio:16/10;border-radius:16px;overflow:hidden;background:var(--card);border:1px solid var(--line);transition:transform .2s,border-color .2s}
+.card:hover .cv{transform:translateY(-3px);border-color:var(--line2)}
+.card .cv .pl{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.35);opacity:0;transition:.2s}
+.card:hover .cv .pl{opacity:1}
+.pl span{width:54px;height:54px;border-radius:50%;background:var(--acc);display:flex;align-items:center;justify-content:center;transform:scale(.85);transition:.2s}
+.card:hover .pl span{transform:none}
+.card .nw{position:absolute;top:10px;left:10px;font-size:11px;font-weight:800;letter-spacing:.05em;background:var(--acc);color:var(--ink);padding:3px 8px;border-radius:7px}
+.card .mt{display:flex;gap:12px;align-items:center;margin-top:12px}
+.card .mt img{width:42px;height:42px;border-radius:11px;flex:none;background:var(--card)}
+.card .mt b{display:block;font-weight:600;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.card .mt small{display:block;color:var(--mut);font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.card .mt div{min-width:0}
+.empty{border:1px dashed var(--line2);border-radius:20px;padding:48px 24px;text-align:center;color:var(--mut)}
+.empty b{display:block;color:var(--txt);font-family:var(--disp);font-size:22px;margin-bottom:6px}
+.promo{margin:56px 0 0;border-radius:24px;background:var(--acc);color:var(--ink);padding:36px 40px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.promo h3{font-family:var(--disp);font-size:30px;line-height:1.05;letter-spacing:-.02em;margin:0 0 6px}
+.promo p{margin:0;opacity:.75;max-width:520px}
+.promo .btn{background:var(--ink);color:var(--txt)}
+footer{margin-top:64px;border-top:1px solid var(--line);padding:32px 0 calc(40px + var(--sb));color:var(--mut);font-size:14px}
+footer .fr{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;align-items:center}
+footer .logo{font-size:20px;color:var(--txt)}
+footer .logo img{width:26px;height:26px;border-radius:7px}
+footer nav{display:flex;gap:20px}
+footer nav button{color:var(--mut)}
+footer nav button:hover{color:var(--txt)}
+/* player */
+#player{display:none}
+body.playing #home{display:none}
+body.playing #player{display:block}
+.pbar{display:flex;align-items:center;gap:14px;margin:22px 0 16px}
+.pbar img{width:48px;height:48px;border-radius:13px}
+.pbar h1{font-family:var(--disp);font-size:24px;letter-spacing:-.02em;margin:0;line-height:1.1}
+.pbar small{color:var(--mut)}
+.pbar .sp{flex:1}
+.stage{position:relative;height:min(78vh,820px);border-radius:22px;overflow:hidden;background:#000;border:1px solid var(--line)}
+.stage iframe{position:absolute;inset:0;width:100%;height:100%;border:0;background:#000}
+.loading{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;background:var(--bg2);z-index:2;transition:opacity .3s}
+.loading img{width:88px;height:88px;border-radius:22px;animation:pulse 1.2s infinite alternate}
+@keyframes pulse{to{transform:scale(1.06)}}
+.bar{width:160px;height:4px;border-radius:9px;background:var(--line);overflow:hidden}
+.bar i{display:block;height:100%;width:40%;background:var(--acc);border-radius:9px;animation:ld 1s infinite ease-in-out}
+@keyframes ld{0%{transform:translateX(-100%)}100%{transform:translateX(250%)}}
+.pinfo{display:grid;grid-template-columns:1fr auto;gap:24px;margin-top:20px;color:var(--mut)}
+.pinfo p{margin:0;max-width:720px}
+.stats{display:flex;gap:18px;font-size:14px}
+.stats b{color:var(--txt)}
+#fab{display:none}
+/* modal */
+.ov{position:fixed;inset:0;z-index:60;background:rgba(5,5,8,.7);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .2s;padding:20px}
+.ov.on{opacity:1;pointer-events:auto}
+.md{width:100%;max-width:520px;max-height:min(88vh,860px);overflow:auto;background:var(--bg2);border:1px solid var(--line);border-radius:24px;padding:28px;transform:translateY(12px) scale(.98);transition:transform .25s;position:relative}
+.ov.on .md{transform:none}
+.md h2{font-family:var(--disp);font-size:26px;letter-spacing:-.02em;margin:0 0 4px;padding-right:40px}
+.md .sub{color:var(--mut);margin:0 0 20px;font-size:14px}
+.md .x{position:absolute;top:18px;right:18px}
+.fl{display:block;font-size:13px;font-weight:600;color:var(--mut);margin:16px 0 7px}
+.in{width:100%;height:48px;padding:0 14px;border-radius:12px;border:1px solid var(--line2);background:var(--card);outline:none;font-size:15px;transition:.15s}
+.in:focus{border-color:var(--acc);background:var(--card2)}
+textarea.in{height:auto;min-height:92px;padding:12px 14px;resize:vertical}
+.seg{display:flex;background:var(--card);border:1px solid var(--line);padding:4px;border-radius:12px;margin-bottom:6px}
+.seg button{flex:1;height:38px;border-radius:9px;font-weight:600;color:var(--mut)}
+.seg button.on{background:var(--card2);color:var(--txt)}
+.err{color:var(--red);font-size:14px;min-height:20px;margin-top:12px}
+.drop{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;text-align:center;border:1.5px dashed var(--line2);border-radius:18px;padding:40px 20px;cursor:pointer;color:var(--mut);transition:.15s;background:var(--card)}
+.drop:hover,.drop.hv{border-color:var(--acc);color:var(--txt)}
+.drop b{color:var(--txt);font-size:16px}
+.drop .di{width:52px;height:52px;border-radius:14px;background:var(--card2);display:flex;align-items:center;justify-content:center}
+.prev{border-radius:16px;overflow:hidden;border:1px solid var(--line);background:var(--card)}
+.prev .cv{aspect-ratio:16/10}
+.prev .pm{display:flex;gap:12px;align-items:center;padding:12px 14px}
+.prev .pm img{width:44px;height:44px;border-radius:12px}
+.note{display:flex;gap:8px;align-items:center;font-size:13px;color:var(--mut);margin-top:10px}
+.note i{width:7px;height:7px;border-radius:50%;background:var(--acc);flex:none}
+.note i.w{background:#ffb84d}
+.row{display:flex;gap:10px;margin-top:16px}
+.row>*{flex:1}
+.li{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}
+.li img{width:44px;height:44px;border-radius:12px;flex:none}
+.li div{flex:1;min-width:0}
+.li b{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:600}
+.li small{color:var(--mut)}
+.sm{height:34px;padding:0 12px;border-radius:9px;background:var(--card2);border:1px solid var(--line2);font-weight:600;font-size:13px}
+.sm.dng{color:var(--red);background:rgba(255,84,112,.1);border-color:transparent}
+.prof{display:flex;gap:16px;align-items:center;margin-bottom:20px}
+.prof .av{width:64px;height:64px;font-size:26px}
+.spin{width:20px;height:20px;border:2.5px solid rgba(0,0,0,.25);border-top-color:currentColor;border-radius:50%;animation:sp .8s linear infinite}
 @keyframes sp{to{transform:rotate(360deg)}}
+#toast{position:fixed;left:50%;bottom:calc(28px + var(--sb));transform:translate(-50%,20px);background:var(--txt);color:var(--ink);font-weight:600;padding:12px 18px;border-radius:12px;opacity:0;transition:.25s;z-index:90;pointer-events:none;max-width:90vw;box-shadow:0 10px 30px rgba(0,0,0,.4)}
+#toast.on{opacity:1;transform:translate(-50%,0)}
+.capf{position:fixed;left:0;top:0;width:800px;height:800px;opacity:.01;pointer-events:none;z-index:-5;border:0}
+/* ---------- MOBİL ---------- */
+@media (max-width:820px){
+ .wrap{padding:0 18px}
+ .donly{display:none!important}.monly{display:flex!important}
+ .hd{height:60px;gap:10px}
+ .logo{font-size:23px}.logo img{width:30px;height:30px}
+ .hact{margin-left:auto;gap:8px}
+ .ibtn{width:40px;height:40px}
+ #msearch{display:none;padding:0 0 12px}
+ #msearch.on{display:block}
+ #msearch .search{max-width:none;margin:0}
+ .hero{grid-template-columns:1fr;min-height:0;margin-top:16px;border-radius:24px}
+ .hero::after{background:linear-gradient(0deg,var(--bg2) 30%,rgba(17,17,23,.5) 70%,transparent)}
+ .hero .hc{order:-1;padding:14px 14px 0}
+ .hero .hc .cv{border-radius:16px}
+ .hero .ht{padding:18px 20px 22px;gap:12px}
+ .hero h1{font-size:32px}
+ .hero p{font-size:14px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+ .hero .hb .btn{flex:1}
+ .hero.intro .ht{padding:32px 22px}
+ .sh{margin:30px 0 14px;flex-direction:column;align-items:stretch;gap:12px}
+ .sh h2{font-size:24px}
+ .tabs{align-self:flex-start}
+ .grid{grid-template-columns:1fr 1fr;gap:16px 12px}
+ .card .cv{border-radius:14px}
+ .card .mt{margin-top:9px;gap:9px}
+ .card .mt img{width:34px;height:34px;border-radius:9px}
+ .card .mt b{font-size:14px}
+ .card .mt small{font-size:12px}
+ .promo{flex-direction:column;align-items:flex-start;padding:28px 24px;margin-top:40px}
+ .promo h3{font-size:26px}
+ footer .fr{flex-direction:column;align-items:flex-start}
+ /* oyun: tam ekran */
+ body.playing{overflow:hidden}
+ body.playing header.top,body.playing footer{display:none}
+ #player .wrap{padding:0}
+ .pbar,.pinfo,#pmore{display:none!important}
+ .stage{position:fixed;inset:0;height:auto;border-radius:0;border:0;z-index:40}
+ body.playing #fab{display:flex}
+ #fab{position:fixed;left:12px;top:calc(12px + var(--st));width:44px;height:44px;border-radius:50%;background:rgba(11,11,15,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.25);z-index:45;align-items:center;justify-content:center;touch-action:none;opacity:.8}
+ #fmenu{position:fixed;z-index:46;background:rgba(21,21,28,.96);border:1px solid var(--line2);border-radius:16px;padding:6px;display:none;min-width:200px;box-shadow:0 20px 50px rgba(0,0,0,.5)}
+ #fmenu button{display:flex;align-items:center;gap:10px;width:100%;padding:12px;border-radius:10px;font-weight:600;font-size:15px}
+ #fmenu button:active{background:var(--card2)}
+ .ov{align-items:flex-end;padding:0}
+ .md{max-width:none;border-radius:24px 24px 0 0;max-height:92vh;padding:24px 20px calc(24px + var(--sb));transform:translateY(100%);border-bottom:0}
+ .md::before{content:"";display:block;width:40px;height:4px;border-radius:9px;background:var(--line2);margin:-10px auto 14px}
+ #toast{bottom:calc(20px + var(--sb))}
+}
+@media (min-width:821px){#fmenu{display:none!important}}
 </style>
 </head>
 <body>
-<div id="stage"><div id="phone">
- <div class="blob" style="width:220px;height:220px;background:#ff8fd0;left:-60px;top:120px"></div>
- <div class="blob" style="width:260px;height:260px;background:#7f6bff;right:-90px;top:380px"></div>
- <div id="status"><span id="clock">9:41</span><span class="r"><svg width="18" height="12" viewBox="0 0 18 12"><rect x="0" y="8" width="3" height="4" rx="1" fill="#fff"/><rect x="5" y="5" width="3" height="7" rx="1" fill="#fff"/><rect x="10" y="2" width="3" height="10" rx="1" fill="#fff"/><rect x="15" y="0" width="3" height="12" rx="1" fill="#fff"/></svg><svg width="26" height="12" viewBox="0 0 26 12"><rect x=".5" y=".5" width="22" height="11" rx="3.5" fill="none" stroke="#fff" opacity=".6"/><rect x="2" y="2" width="17" height="8" rx="2" fill="#fff"/><rect x="24" y="4" width="2" height="4" rx="1" fill="#fff" opacity=".6"/></svg></span></div>
- <div id="home">
-  <div class="hello" id="hello">Merhaba!</div>
-  <div class="brand">zyne <i>oyunlar</i></div>
-  <div id="banner"></div>
-  <div class="search"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><input id="q" placeholder="Oyun ara" autocomplete="off"></div>
-  <div class="chips" id="chips"></div>
-  <div id="list"></div>
+<header class="top"><div class="wrap">
+ <div class="hd">
+  <a class="logo" href="/" data-go="home" aria-label="zyne ana sayfa"><img src="/favicon.svg" alt="">zyne</a>
+  <nav class="links donly"><button data-tab="all" class="on">Keşfet</button><button data-tab="new">Yeni</button><button data-tab="top">Popüler</button></nav>
+  <label class="search donly"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="color:var(--mut)"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input id="q" placeholder="Oyun ara" autocomplete="off" aria-label="Oyun ara"><kbd>/</kbd></label>
+  <div class="hact">
+   <button class="ibtn monly" id="msbtn" aria-label="Ara"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
+   <button class="ibtn monly" data-act="upload" aria-label="Oyun yükle"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button>
+   <button class="btn acc donly" data-act="upload"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>Oyun yükle</button>
+   <span id="authbox"></span>
+  </div>
  </div>
- <div id="dock">
-  <button class="dk" data-a="home"><span class="ic" style="background:linear-gradient(135deg,#ffb3d1,#ff7fb0)">🏠</span>Ana Ekran</button>
-  <button class="dk" data-a="upload"><span class="ic" style="background:linear-gradient(135deg,#c7a6ff,#8b6bff)">➕</span>Yükle</button>
-  <button class="dk" data-a="mine"><span class="ic" style="background:linear-gradient(135deg,#9fe6ff,#5bb6ff)">🎮</span>Oyunlarım</button>
-  <button class="dk" data-a="me"><span class="ic" style="background:linear-gradient(135deg,#ffe08a,#ffad5a)" id="meic">👤</span><span id="melb">Giriş</span></button>
+ <div id="msearch"><label class="search"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="color:var(--mut)"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input id="q2" placeholder="Oyun ara" autocomplete="off" aria-label="Oyun ara"></label></div>
+</div></header>
+
+<main>
+ <div id="home" class="wrap">
+  <section id="hero"></section>
+  <div class="sh"><h2 id="sectitle">Tüm oyunlar</h2><div class="tabs" id="tabs"><button data-tab="all" class="on">Tümü</button><button data-tab="new">Yeni</button><button data-tab="top">Popüler</button></div></div>
+  <div id="grid"></div>
+  <section class="promo"><div><h3>Oyun mu yapıyorsun?</h3><p>HTML dosyanı yükle, logo ve kapağı biz hazırlayalım. Saniyeler içinde herkes oynayabilsin.</p></div><button class="btn lg" data-act="upload">Oyununu yükle</button></section>
  </div>
- <div id="veil"></div>
- <div id="sheet"><div class="grab"></div><div class="body" id="sb"></div></div>
- <div id="app"><div id="splash"></div><div id="fab"></div><div id="fmenu"><button data-m="close">✕ Oyunu kapat</button><button data-m="reload">↻ Yeniden başlat</button><button data-m="full">⛶ Tam ekran</button><button data-m="share">🔗 Bağlantıyı kopyala</button></div></div>
- <div id="toast"></div>
-</div></div>
+ <div id="player"><div class="wrap">
+  <div class="pbar"><button class="ibtn" id="pback" aria-label="Geri"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button><img id="picon" alt=""><div><h1 id="ptitle"></h1><small id="pby"></small></div><span class="sp"></span>
+   <button class="ibtn" id="pedit" title="Düzenle" aria-label="Düzenle"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></button>
+   <button class="ibtn" id="pshare" title="Bağlantıyı kopyala" aria-label="Paylaş"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></svg></button>
+   <button class="btn sec" id="pfull"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>Tam ekran</button></div>
+  <div class="stage" id="stage"><div class="loading" id="loading"></div></div>
+  <div class="pinfo"><p id="pdesc"></p><div class="stats" id="pstats"></div></div>
+  <section id="pmore"><div class="sh"><h2>Bunları da oyna</h2></div><div class="grid" id="moregrid"></div></section>
+ </div></div>
+</main>
+<footer><div class="wrap fr">
+ <div><a class="logo" href="/" data-go="home"><img src="/favicon.svg" alt="">zyne</a><div style="margin-top:8px">İndirme yok. Üyelik yok. Sadece oyna.</div></div>
+ <nav><button data-act="upload">Oyun yükle</button><button data-act="about">Hakkında</button><button data-act="me">Hesabım</button></nav>
+ <div>© <span id="yr">2026</span> zyne</div>
+</div></footer>
+<button id="fab" aria-label="Oyun menüsü"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+<div id="fmenu"><button data-m="close">Oyundan çık</button><button data-m="reload">Yeniden başlat</button><button data-m="share">Bağlantıyı kopyala</button></div>
+<div class="ov" id="ov"><div class="md" id="md"></div></div>
+<div id="toast"></div>
 <script>
 'use strict';
-const $=s=>document.querySelector(s),esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const EMO=['🎮','🐱','🐶','🍬','🧩','🚀','⭐','👾','🏎️','⚽','🎨','🧁','🐸','🦄','🌈','💎','🔥','🎯','🐟','🍓','🎲','🏰','🐼','🎵'];
-const COL=['#ff7fb0','#ff9a6b','#ffd166','#7ed99a','#5bc8ff','#8b7bff','#c77dff','#ff5c7a','#2e2b44','#ffffff'];
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const MAXF=5*1024*1024;
-let ADM=false,me=null,games=[],filter='all',query='',cur=null;
-/* ================== VERİ KATMANI ================== */
+const IC={x:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>',play:'<svg width="20" height="20" viewBox="0 0 24 24" fill="#0B0B0F"><path d="M7 4.5v15a1 1 0 0 0 1.5.86l12.5-7.5a1 1 0 0 0 0-1.72L8.5 3.64A1 1 0 0 0 7 4.5Z"/></svg>',playS:'<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M7 4.5v15a1 1 0 0 0 1.5.86l12.5-7.5a1 1 0 0 0 0-1.72L8.5 3.64A1 1 0 0 0 7 4.5Z"/></svg>',up:'<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4m0 0-4 4m4-4 4 4"/><path d="M4 16v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>'};
+let ADM=false,me=null,games=[],tab='all',query='',cur=null;
+/* ============ VERİ ============ */
 const DEMO=!CONFIG.SUPABASE_URL||!CONFIG.SUPABASE_ANON_KEY||!window.supabase;
 const uname=u=>u?(u.user_metadata&&u.user_metadata.username)||(u.email||'').split('@')[0]:'';
-const isAdmin=()=>!!me&&(ADM||(!!CONFIG.ADMIN_EMAIL&&!!me.email&&me.email.toLowerCase()===CONFIG.ADMIN_EMAIL.toLowerCase()));
-const canEdit=gm=>!!me&&(gm.owner===me.id||isAdmin()||DEMO);
+const isAdmin=()=>!!me&&(ADM||(!!CONFIG.ADMIN_EMAIL&&me.email&&me.email.toLowerCase()===CONFIG.ADMIN_EMAIL.toLowerCase()));
+const canEdit=g=>!!me&&!!g&&(g.owner===me.id||isAdmin()||DEMO);
+const tr=e=>{const m=(e&&e.message)||String(e);if(/Invalid login/i.test(m))return'E-posta ya da şifre yanlış.';if(/Email not confirmed/i.test(m))return'E-postanı onaylaman gerekiyor.';if(/already registered/i.test(m))return'Bu e-posta zaten kayıtlı. Giriş yap.';if(/Password should/i.test(m))return'Şifre en az 6 karakter olmalı.';if(/rate limit/i.test(m))return'Çok fazla deneme oldu, biraz bekle.';if(/valid email|invalid format/i.test(m))return'Geçerli bir e-posta yaz.';return m};
 let api;
 if(!DEMO){
  const sb=window.supabase.createClient(CONFIG.SUPABASE_URL,CONFIG.SUPABASE_ANON_KEY,{auth:{persistSession:true,autoRefreshToken:true}});
- const tr=e=>{const m=(e&&e.message)||String(e);if(/Invalid login/i.test(m))return'E-posta ya da şifre yanlış.';if(/Email not confirmed/i.test(m))return'Önce e-postana gelen onay bağlantısına tıkla.';if(/already registered/i.test(m))return'Bu e-posta zaten kayıtlı, giriş yap.';if(/Password should/i.test(m))return'Şifre en az 6 karakter olmalı.';if(/rate limit/i.test(m))return'Çok fazla deneme oldu, biraz bekle.';return m};
  api={
-  async init(){const chk=()=>{ADM=false;if(me)sb.rpc('is_admin').then(r=>{ADM=!!r.data;renderMe()},()=>{})};const{data}=await sb.auth.getSession();me=data.session?data.session.user:null;chk();sb.auth.onAuthStateChange((_e,s)=>{const was=me&&me.id;me=s?s.user:null;if((me&&me.id)!==was)chk();renderMe();render()})},
+  async init(){const chk=()=>{ADM=false;if(me)sb.rpc('is_admin').then(r=>{ADM=!!r.data;renderAuth()},()=>{})};const{data}=await sb.auth.getSession();me=data.session?data.session.user:null;chk();sb.auth.onAuthStateChange((_e,s)=>{const was=me&&me.id;me=s?s.user:null;if((me&&me.id)!==was){chk();renderAuth();renderHome()}})},
   async list(){const{data,error}=await sb.from('games').select('*').order('created_at',{ascending:false});if(error)throw new Error(tr(error));return data||[]},
-  async signUp(email,pw,username){const{data,error}=await sb.auth.signUp({email,password:pw,options:{data:{username},emailRedirectTo:location.origin+location.pathname}});if(error)throw new Error(tr(error));return!data.session},
-  async signIn(email,pw){const{error}=await sb.auth.signInWithPassword({email,password:pw});if(error)throw new Error(tr(error))},
-  async signOut(){await sb.auth.signOut()},
+  async signUp(email,pw,username){const{data,error}=await sb.auth.signUp({email,password:pw,options:{data:{username},emailRedirectTo:location.origin+'/'}});if(error)throw new Error(tr(error));if(data.session)me=data.session.user;return!data.session},
+  async signIn(email,pw){const{data,error}=await sb.auth.signInWithPassword({email,password:pw});if(error)throw new Error(tr(error));me=data.user},
+  async signOut(){await sb.auth.signOut();me=null},
   async create(f,file){const path=me.id+'/'+(crypto.randomUUID?crypto.randomUUID():Date.now().toString(36))+'.html';
    const up=await sb.storage.from('games').upload(path,file,{contentType:'text/plain;charset=utf-8',upsert:false});if(up.error)throw new Error(tr(up.error));
-   const{error}=await sb.from('games').insert({title:f.title,description:f.description,icon:f.icon,color:f.color,path,author:uname(me)});if(error){await sb.storage.from('games').remove([path]);throw new Error(tr(error))}},
-  async update(gm,f,file){if(file){const up=await sb.storage.from('games').upload(gm.path,file,{contentType:'text/plain;charset=utf-8',upsert:true});if(up.error)throw new Error(tr(up.error))}
-   const{error}=await sb.from('games').update({title:f.title,description:f.description,icon:f.icon,color:f.color,updated_at:new Date().toISOString()}).eq('id',gm.id);if(error)throw new Error(tr(error))},
-  async remove(gm){const{error}=await sb.from('games').delete().eq('id',gm.id);if(error)throw new Error(tr(error));await sb.storage.from('games').remove([gm.path])},
-  async html(gm){const u=sb.storage.from('games').getPublicUrl(gm.path).data.publicUrl+'?v='+encodeURIComponent(gm.updated_at||'');const r=await fetch(u,{cache:'no-cache'});if(!r.ok)throw new Error('Oyun dosyası açılamadı ('+r.status+')');return r.text()},
+   const{error}=await sb.from('games').insert({title:f.title,description:f.description,icon:f.icon,cover:f.cover,color:'#D4FF3A',path,author:uname(me)});if(error){await sb.storage.from('games').remove([path]);throw new Error(tr(error))}},
+  async update(g,f,file){if(file){const up=await sb.storage.from('games').upload(g.path,file,{contentType:'text/plain;charset=utf-8',upsert:true});if(up.error)throw new Error(tr(up.error))}
+   const p={title:f.title,description:f.description,updated_at:new Date().toISOString()};if(f.icon!==undefined)p.icon=f.icon;if(f.cover!==undefined)p.cover=f.cover;const{error}=await sb.from('games').update(p).eq('id',g.id);if(error)throw new Error(tr(error))},
+  async remove(g){const{error}=await sb.from('games').delete().eq('id',g.id);if(error)throw new Error(tr(error));await sb.storage.from('games').remove([g.path])},
+  async html(g){const u=sb.storage.from('games').getPublicUrl(g.path).data.publicUrl+'?v='+encodeURIComponent(g.updated_at||'');const r=await fetch(u,{cache:'no-cache'});if(!r.ok)throw new Error('Oyun dosyası açılamadı ('+r.status+')');return r.text()},
   play(id){sb.rpc('play',{gid:id}).then(()=>{},()=>{})}
  };
 }else{
- const K='zyne_demo',ld=()=>{try{return JSON.parse(localStorage.getItem(K))||{games:[],users:[],me:null}}catch(e){return{games:[],users:[],me:null}}},sv=d=>{try{localStorage.setItem(K,JSON.stringify(d))}catch(e){throw new Error('Cihazda yer kalmadı (deneme modu).')}};
- const rd=f=>new Promise((res,rej)=>{const r=new FileReader();r.onload=()=>res(r.result);r.onerror=rej;r.readAsText(f)});
+ const K='zyne_demo2',ld=()=>{try{return JSON.parse(localStorage.getItem(K))||{games:[],users:[],me:null}}catch(e){return{games:[],users:[],me:null}}},sv=d=>{try{localStorage.setItem(K,JSON.stringify(d))}catch(e){throw new Error('Cihazda yer kalmadı (deneme modu).')}};
+ const rd=f=>f.text();
  api={
-  async init(){const d=ld();me=d.me},
+  async init(){me=ld().me},
   async list(){return ld().games.map(g=>Object.assign({},g,{html:undefined}))},
-  async signUp(email,pw,username){const d=ld();if(d.users.find(u=>u.email===email))throw new Error('Bu e-posta zaten kayıtlı, giriş yap.');if(pw.length<6)throw new Error('Şifre en az 6 karakter olmalı.');const u={id:'u'+Date.now(),email,pw,user_metadata:{username}};d.users.push(u);d.me={id:u.id,email,user_metadata:u.user_metadata};sv(d);me=d.me;return false},
+  async signUp(email,pw,username){const d=ld();if(d.users.find(u=>u.email===email))throw new Error('Bu e-posta zaten kayıtlı. Giriş yap.');if(pw.length<6)throw new Error('Şifre en az 6 karakter olmalı.');const u={id:'u'+Date.now(),email,pw,user_metadata:{username}};d.users.push(u);d.me={id:u.id,email,user_metadata:u.user_metadata};sv(d);me=d.me;return false},
   async signIn(email,pw){const d=ld(),u=d.users.find(u=>u.email===email&&u.pw===pw);if(!u)throw new Error('E-posta ya da şifre yanlış.');d.me={id:u.id,email,user_metadata:u.user_metadata};sv(d);me=d.me},
   async signOut(){const d=ld();d.me=null;sv(d);me=null},
-  async create(f,file){const d=ld(),h=await rd(file);d.games.unshift({id:'g'+Date.now(),owner:me.id,author:uname(me),title:f.title,description:f.description,icon:f.icon,color:f.color,path:'demo',plays:0,created_at:new Date().toISOString(),updated_at:new Date().toISOString(),html:h});sv(d)},
-  async update(gm,f,file){const d=ld(),g=d.games.find(x=>x.id===gm.id);if(!g)return;Object.assign(g,{title:f.title,description:f.description,icon:f.icon,color:f.color,updated_at:new Date().toISOString()});if(file)g.html=await rd(file);sv(d)},
-  async remove(gm){const d=ld();d.games=d.games.filter(x=>x.id!==gm.id);sv(d)},
-  async html(gm){const g=ld().games.find(x=>x.id===gm.id);if(!g)throw new Error('Oyun bulunamadı');return g.html},
-  play(id){const d=ld(),g=d.games.find(x=>x.id===id);if(g){g.plays=(g.plays||0)+1;sv(d)}}
+  async create(f,file){const d=ld();d.games.unshift({id:'g'+Date.now(),owner:me.id,author:uname(me),title:f.title,description:f.description,icon:f.icon,cover:f.cover,path:'demo',plays:0,created_at:new Date().toISOString(),updated_at:new Date().toISOString(),html:await rd(file)});sv(d)},
+  async update(g,f,file){const d=ld(),x=d.games.find(y=>y.id===g.id);if(!x)return;Object.assign(x,{title:f.title,description:f.description,updated_at:new Date().toISOString()});if(f.icon!==undefined)x.icon=f.icon;if(f.cover!==undefined)x.cover=f.cover;if(file)x.html=await rd(file);sv(d)},
+  async remove(g){const d=ld();d.games=d.games.filter(x=>x.id!==g.id);sv(d)},
+  async html(g){const x=ld().games.find(y=>y.id===g.id);if(!x)throw new Error('Oyun bulunamadı');return x.html},
+  play(id){const d=ld(),x=d.games.find(y=>y.id===id);if(x){x.plays=(x.plays||0)+1;sv(d)}}
  };
 }
-/* ================== ARAYÜZ ================== */
-const toast=(t,ms)=>{const e=$('#toast');e.textContent=t;e.classList.add('on');clearTimeout(e._t);e._t=setTimeout(()=>e.classList.remove('on'),ms||2400)};
-const icHTML=(gm,cls)=>{const ic=gm.icon||'🎮',img=/^data:image\//.test(ic);return`<div class="ic ${cls||''}" style="background:${img?'#fff':`linear-gradient(145deg,${esc(gm.color||'#ff7fb0')},${shade(gm.color||'#ff7fb0',-28)})`}">${img?`<img src="${esc(ic)}" alt="">`:esc(ic)}</div>`};
-function shade(h,p){try{let n=parseInt(String(h).slice(1),16),r=(n>>16)+p,g=(n>>8&255)+p,b=(n&255)+p;r=Math.max(0,Math.min(255,r));g=Math.max(0,Math.min(255,g));b=Math.max(0,Math.min(255,b));return'#'+((1<<24)+(r<<16)+(g<<8)+b).toString(16).slice(1)}catch(e){return h}}
-function tick(){const d=new Date();$('#clock').textContent=d.getHours()+':'+String(d.getMinutes()).padStart(2,'0');const h=d.getHours();$('#hello').textContent=(h<6?'İyi geceler':h<12?'Günaydın':h<18?'İyi günler':'İyi akşamlar')+(me?', '+uname(me):'')+' 👋'}
-setInterval(tick,15000);
-function renderMe(){$('#melb').textContent=me?uname(me).slice(0,10):'Giriş';$('#meic').textContent=me?(uname(me)[0]||'🙂').toLocaleUpperCase('tr'):'👤';tick()}
-function render(){
- $('#banner').innerHTML=DEMO?'<div class="banner">🧪 <b>Deneme modu:</b> Supabase henüz bağlı değil. Yüklediğin oyunlar sadece bu cihazda saklanır.</div>':'';
- const chips=[['all','Tümü'],['new','Yeni'],['top','Popüler']].concat(me?[['mine','Benimkiler']]:[]);
- $('#chips').innerHTML=chips.map(c=>`<button class="chip ${filter===c[0]?'on':''}" data-f="${c[0]}">${c[1]}</button>`).join('');
- let l=games.slice();if(query){const q=query.toLocaleLowerCase('tr');l=l.filter(g=>(g.title+' '+(g.author||'')+' '+(g.description||'')).toLocaleLowerCase('tr').includes(q))}
- if(filter==='top')l.sort((a,b)=>(b.plays||0)-(a.plays||0));if(filter==='mine'&&me)l=l.filter(g=>g.owner===me.id);if(filter==='new')l=l.filter(g=>Date.now()-new Date(g.created_at)<7*864e5);
- if(!games.length){$('#list').innerHTML=`<div class="empty"><b>Henüz oyun yok</b>İlk oyunu sen yükle! Aşağıdaki <b style="display:inline;font-size:inherit">➕ Yükle</b>'ye dokun.</div>`;return}
- if(!l.length){$('#list').innerHTML='<div class="empty"><b>Bulunamadı</b>Başka bir şey ara.</div>';return}
- $('#list').innerHTML='<div class="grid">'+l.map((g,i)=>`<div class="app" data-id="${esc(g.id)}" style="animation-delay:${Math.min(i,20)*25}ms"><div class="icw">${Date.now()-new Date(g.created_at)<2*864e5?'<span class="new">YENİ</span>':''}${icHTML(g)}</div><div class="nm">${esc(g.title)}</div></div>`).join('')+'</div>';
-}
-async function load(){try{games=await api.list()}catch(e){toast('Oyunlar yüklenemedi: '+e.message,4000)}render()}
-/* sheet */
-function openSheet(html,after){$('#sb').innerHTML=html;$('#sb').scrollTop=0;$('#sheet').classList.add('on');$('#veil').classList.add('on');if(after)after()}
-function closeSheet(){$('#sheet').classList.remove('on');$('#veil').classList.remove('on');document.activeElement&&document.activeElement.blur&&document.activeElement.blur()}
-$('#veil').onclick=closeSheet;
-{let sy=null;const s=$('#sheet');s.addEventListener('touchstart',e=>{if($('#sb').scrollTop<=0)sy=e.touches[0].clientY},{passive:true});s.addEventListener('touchmove',e=>{if(sy!=null&&e.touches[0].clientY-sy>90){sy=null;closeSheet()}},{passive:true});s.addEventListener('touchend',()=>sy=null)}
-/* giriş / kayıt */
-function authSheet(mode,then){mode=mode||'in';
- openSheet(`<h2>${mode==='in'?'Tekrar hoş geldin':'Üye ol'}</h2><p class="s">Oynamak için üyelik gerekmez. Oyun yüklemek için giriş yapman lazım.</p>
- <div class="tabs"><button class="${mode==='in'?'on':''}" data-t="in">Giriş yap</button><button class="${mode==='up'?'on':''}" data-t="up">Üye ol</button></div>
- <form id="af">${mode==='up'?'<label class="f">Kullanıcı adı</label><input class="in" id="au" maxlength="20" required autocomplete="nickname" placeholder="örn. oyuncu34">':''}
- <label class="f">E-posta</label><input class="in" id="ae" type="email" required autocomplete="email" placeholder="ornek@mail.com">
- <label class="f">Şifre</label><input class="in" id="ap" type="password" required minlength="6" autocomplete="${mode==='in'?'current-password':'new-password'}" placeholder="en az 6 karakter">
- <div class="err" id="aerr"></div><button class="btn" id="ab">${mode==='in'?'Giriş yap':'Hesap oluştur'}</button></form>`,()=>{
-  $('#sb').querySelectorAll('[data-t]').forEach(b=>b.onclick=()=>authSheet(b.dataset.t,then));
-  $('#af').onsubmit=async e=>{e.preventDefault();const b=$('#ab');b.disabled=true;b.innerHTML='<span class="spin"></span>';$('#aerr').textContent='';
-   try{const em=$('#ae').value.trim(),pw=$('#ap').value;
-    if(mode==='up'){const u=$('#au').value.trim();if(u.length<2)throw new Error('Kullanıcı adı en az 2 karakter olmalı.');const needConfirm=await api.signUp(em,pw,u);
-     if(needConfirm){openSheet(`<h2>📬 E-postana bak</h2><p class="s"><b>${esc(em)}</b> adresine bir onay bağlantısı gönderdik. Bağlantıya tıkladıktan sonra buraya dönüp giriş yapabilirsin.</p><button class="btn" id="ok">Tamam</button>`,()=>$('#ok').onclick=()=>authSheet('in',then));return}}
-    else await api.signIn(em,pw);
-    renderMe();render();toast('Hoş geldin, '+uname(me)+'!');closeSheet();if(then)setTimeout(then,350)}
-   catch(err){$('#aerr').textContent=err.message;b.disabled=false;b.textContent=mode==='in'?'Giriş yap':'Hesap oluştur'}}})}
-/* profil */
-function meSheet(){if(!me)return authSheet('in');
- const mine=games.filter(g=>g.owner===me.id),plays=mine.reduce((a,g)=>a+(g.plays||0),0);
- openSheet(`<div class="info"><div class="ic" style="background:linear-gradient(145deg,#ffe08a,#ffad5a);border-radius:50%">${esc((uname(me)[0]||'?').toLocaleUpperCase('tr'))}</div><div><h2 style="margin:0">${esc(uname(me))}</h2><div class="meta">${esc(me.email||'')}${isAdmin()?' · 👑 Yönetici':''}</div><div class="meta">${mine.length} oyun · ${plays} oynanma</div></div></div>
- <button class="btn" id="m1">🎮 Oyunlarımı yönet</button><button class="btn ghost" id="m2">➕ Yeni oyun yükle</button><button class="btn red" id="m3">Çıkış yap</button>`,()=>{
-  $('#m1').onclick=mineSheet;$('#m2').onclick=()=>uploadSheet();$('#m3').onclick=async()=>{await api.signOut();me=null;renderMe();filter='all';render();closeSheet();toast('Çıkış yapıldı')}})}
-function mineSheet(){if(!me)return authSheet('in',mineSheet);
- const list=isAdmin()?games:games.filter(g=>g.owner===me.id);
- openSheet(`<h2>${isAdmin()?'Tüm oyunlar 👑':'Oyunlarım'}</h2><p class="s">${isAdmin()?'Yönetici olarak her oyunu düzenleyip silebilirsin.':'Yüklediğin oyunları buradan düzenleyebilir ya da silebilirsin.'}</p>
- ${list.length?list.map(g=>`<div class="mine">${icHTML(g)}<div class="t"><b>${esc(g.title)}</b><small>${esc(g.author||'')} · ${g.plays||0} oynanma</small></div><button class="sm" data-e="${esc(g.id)}">Düzenle</button><button class="sm red" data-d="${esc(g.id)}">Sil</button></div>`).join(''):'<div class="empty" style="background:#efe8fa;color:var(--muted)"><b style="color:var(--ink)">Henüz oyunun yok</b>İlk oyununu yükle!</div>'}
- <button class="btn" id="mu">➕ Yeni oyun yükle</button>`,()=>{
-  $('#mu').onclick=()=>uploadSheet();
-  $('#sb').querySelectorAll('[data-e]').forEach(b=>b.onclick=()=>uploadSheet(games.find(g=>g.id===b.dataset.e)));
-  $('#sb').querySelectorAll('[data-d]').forEach(b=>b.onclick=()=>delSheet(games.find(g=>g.id===b.dataset.d),mineSheet))})}
-function delSheet(gm,back){if(!gm)return;openSheet(`<div class="info">${icHTML(gm)}<div><h2 style="margin:0">${esc(gm.title)}</h2><div class="meta">Bu oyun kalıcı olarak silinecek.</div></div></div><p class="s">Emin misin? Bu işlem geri alınamaz.</p><div class="row"><button class="btn ghost" id="dn">Vazgeç</button><button class="btn red" id="dy">Evet, sil</button></div>`,()=>{
- $('#dn').onclick=back||closeSheet;$('#dy').onclick=async()=>{$('#dy').disabled=true;try{await api.remove(gm);toast('Oyun silindi');await load();(back||closeSheet)()}catch(e){toast(e.message,4000);$('#dy').disabled=false}}})}
-/* yükle / düzenle */
-function uploadSheet(gm){if(!me)return authSheet('in',()=>uploadSheet(gm));
- const st={icon:gm?gm.icon:'🎮',color:gm?gm.color:COL[Math.random()*6|0],file:null};
- openSheet(`<h2>${gm?'Oyunu düzenle':'Oyun yükle'}</h2><p class="s">${gm?'Bilgileri değiştir. Yeni bir HTML seçersen oyun güncellenir.':'Kendi yaptığın tek dosyalık bir HTML oyununu seç. Yükledikten sonra herkes oynayabilir.'}</p>
- <label class="f">HTML dosyası ${gm?'(isteğe bağlı)':''}</label><label class="drop" id="dz"><input type="file" id="uf" accept=".html,.htm,text/html" hidden><b id="fn">${gm?'Dosyayı değiştirmek için dokun':'Dosya seçmek için dokun'}</b><br><small>.html · en fazla 5 MB</small></label>
- <label class="f">Oyun adı</label><input class="in" id="ut" maxlength="40" value="${esc(gm?gm.title:'')}" placeholder="örn. Minik Kedim">
- <label class="f">Kısa açıklama</label><textarea class="in" id="ud" maxlength="300" placeholder="Oyun ne hakkında?">${esc(gm?gm.description:'')}</textarea>
- <label class="f">Simge</label><div class="emojis" id="ue">${EMO.map(e=>`<button type="button" data-e="${e}">${e}</button>`).join('')}</div>
- <div class="swatches" id="uc">${COL.map(c=>`<button type="button" data-c="${c}" style="background:${c}"></button>`).join('')}</div>
- <div class="row" style="margin-top:10px"><label class="sm" style="display:inline-block">🖼️ Resim seç<input type="file" id="ui" accept="image/*" hidden></label></div>
- <div class="pv" id="pv"></div>
- <div class="err" id="uerr"></div><button class="btn" id="ub">${gm?'Kaydet':'Yükle ve yayınla'}</button>
- ${gm?'<button class="btn red" id="udel">Oyunu sil</button>':''}`,()=>{
-  const pv=()=>{$('#pv').innerHTML=icHTML({icon:st.icon,color:st.color})+`<div><b>${esc($('#ut').value||'Oyun adı')}</b><div class="meta">${esc(uname(me))}</div></div>`;
-   $('#ue').querySelectorAll('button').forEach(b=>b.classList.toggle('on',b.dataset.e===st.icon));$('#uc').querySelectorAll('button').forEach(b=>b.classList.toggle('on',b.dataset.c===st.color))};
-  pv();$('#ut').oninput=pv;
-  $('#ue').onclick=e=>{const b=e.target.closest('[data-e]');if(b){st.icon=b.dataset.e;pv()}};
-  $('#uc').onclick=e=>{const b=e.target.closest('[data-c]');if(b){st.color=b.dataset.c;if(/^data:/.test(st.icon))st.icon='🎮';pv()}};
-  $('#uf').onchange=async()=>{const f=$('#uf').files[0];if(!f)return;if(f.size>MAXF){$('#uerr').textContent='Dosya 5 MB\'tan büyük.';return}
-   const t=await f.text();if(!/<(html|script|canvas|body|div)/i.test(t)){$('#uerr').textContent='Bu bir HTML oyun dosyası gibi görünmüyor.';return}
-   st.file=f;$('#uerr').textContent='';$('#fn').textContent='✅ '+f.name;if(!$('#ut').value){const m=t.match(/<title[^>]*>([^<]{1,40})/i);$('#ut').value=(m?m[1]:f.name.replace(/\.html?$/i,'')).trim().slice(0,40);pv()}};
-  $('#ui').onchange=()=>{const f=$('#ui').files[0];if(!f)return;const im=new Image();im.onload=()=>{const c=document.createElement('canvas');c.width=c.height=128;const x=c.getContext('2d'),s=Math.min(im.width,im.height);x.drawImage(im,(im.width-s)/2,(im.height-s)/2,s,s,0,0,128,128);st.icon=c.toDataURL('image/jpeg',.85);pv();URL.revokeObjectURL(im.src)};im.src=URL.createObjectURL(f)};
-  if(gm)$('#udel').onclick=()=>delSheet(gm,()=>mineSheet());
-  $('#ub').onclick=async()=>{const title=$('#ut').value.trim(),description=$('#ud').value.trim();
-   if(!gm&&!st.file){$('#uerr').textContent='Bir HTML dosyası seç.';return}if(!title){$('#uerr').textContent='Oyuna bir ad ver.';return}
-   const b=$('#ub');b.disabled=true;b.innerHTML='<span class="spin"></span> '+(gm?'Kaydediliyor':'Yükleniyor');
-   try{const f={title,description,icon:st.icon,color:st.color};if(gm)await api.update(gm,f,st.file);else await api.create(f,st.file);
-    await load();closeSheet();toast(gm?'Kaydedildi ✨':'Oyunun yayında! 🎉')}catch(e){$('#uerr').textContent=e.message;b.disabled=false;b.textContent=gm?'Kaydet':'Yükle ve yayınla'}}})}
-/* oyun bilgisi (basılı tut) */
-function infoSheet(gm){openSheet(`<div class="info">${icHTML(gm)}<div><h2 style="margin:0">${esc(gm.title)}</h2><div class="meta">👤 ${esc(gm.author||'?')} · ▶ ${gm.plays||0} oynanma</div><div class="meta">${new Date(gm.created_at).toLocaleDateString('tr-TR')}</div></div></div>
- ${gm.description?`<p class="s">${esc(gm.description)}</p>`:''}<button class="btn" id="ip">▶ Oyna</button><button class="btn ghost" id="is">🔗 Bağlantıyı kopyala</button>
- ${canEdit(gm)?'<div class="row"><button class="btn ghost" id="ie">Düzenle</button><button class="btn red" id="id">Sil</button></div>':''}`,()=>{
- $('#ip').onclick=()=>{closeSheet();setTimeout(()=>openGame(gm),200)};$('#is').onclick=()=>share(gm);
- if(canEdit(gm)){$('#ie').onclick=()=>uploadSheet(gm);$('#id').onclick=()=>delSheet(gm)}})}
-function share(gm){const u=location.origin+location.pathname+'#oyun-'+gm.id;(navigator.clipboard?navigator.clipboard.writeText(u):Promise.reject()).then(()=>toast('Bağlantı kopyalandı'),()=>prompt('Bağlantı:',u))}
-/* ================== OYUN AÇMA ================== */
+/* ============ GÖRSEL ÜRETİMİ ============ */
+const hash=s=>{let h=2166136261;for(const c of String(s))h=Math.imul(h^c.charCodeAt(0),16777619);return h>>>0};
+const PALS=[['#FF6B9A','#7C3AED'],['#22D3EE','#2563EB'],['#D4FF3A','#16A34A'],['#FB923C','#E11D48'],['#A78BFA','#4F46E5'],['#34D399','#0E7490'],['#FACC15','#EA580C'],['#F472B6','#BE185D'],['#60A5FA','#1E3A8A'],['#F87171','#7F1D1D']];
+const initials=t=>{const w=String(t||'?').trim().split(/\s+/).filter(Boolean);return((w[0]||'?')[0]+(w[1]?w[1][0]:'')).toLocaleUpperCase('tr')};
+const GC={};
+function genIcon(title,size){const k='i'+title+size;if(GC[k])return GC[k];size=size||160;const h=hash(title),p=PALS[h%PALS.length],c=document.createElement('canvas');c.width=c.height=size;const x=c.getContext('2d'),s=size;
+ const g=x.createLinearGradient(0,0,s,s);g.addColorStop(0,p[0]);g.addColorStop(1,p[1]);x.fillStyle=g;x.fillRect(0,0,s,s);
+ x.globalAlpha=.18;x.fillStyle='#fff';x.beginPath();x.arc(s*(.2+(h%7)/10),s*.15,s*.55,0,7);x.fill();x.globalAlpha=.12;x.fillStyle='#000';x.beginPath();x.arc(s*.95,s*1.05,s*.5,0,7);x.fill();x.globalAlpha=1;
+ x.fillStyle='#fff';x.textAlign='center';x.textBaseline='middle';const t=initials(title);x.font=`800 ${s*(t.length>1?.42:.52)}px "Bricolage Grotesque",system-ui,sans-serif`;x.shadowColor='rgba(0,0,0,.25)';x.shadowBlur=s*.06;x.fillText(t,s/2,s*.53);
+ return GC[k]=c.toDataURL('image/png')}
+function genCover(title,w,h){const k='c'+title;if(GC[k])return GC[k];w=w||640;h=h||400;const hh=hash(title),p=PALS[hh%PALS.length],c=document.createElement('canvas');c.width=w;c.height=h;const x=c.getContext('2d');
+ x.fillStyle='#111117';x.fillRect(0,0,w,h);const g=x.createLinearGradient(0,0,w,h);g.addColorStop(0,p[1]);g.addColorStop(1,'#0B0B0F');x.fillStyle=g;x.fillRect(0,0,w,h);
+ const rg=x.createRadialGradient(w*.8,h*.2,10,w*.8,h*.2,w*.6);rg.addColorStop(0,p[0]);rg.addColorStop(1,'rgba(0,0,0,0)');x.globalAlpha=.75;x.fillStyle=rg;x.fillRect(0,0,w,h);x.globalAlpha=1;
+ x.strokeStyle='rgba(255,255,255,.07)';x.lineWidth=1;for(let i=-h;i<w;i+=26){x.beginPath();x.moveTo(i,h);x.lineTo(i+h,0);x.stroke()}
+ const n=3+hh%3;for(let i=0;i<n;i++){const r=30+((hh>>>(i*3))%60),cx=w*(.55+((hh>>>(i*5))%40)/100),cy=h*(.15+((hh>>>(i*4))%60)/100);x.globalAlpha=.16;x.fillStyle='#fff';x.beginPath();i%2?x.arc(cx,cy,r,0,7):x.roundRect?x.roundRect(cx-r,cy-r,r*2,r*2,r*.35):x.rect(cx-r,cy-r,r*2,r*2);x.fill()}x.globalAlpha=1;
+ const words=String(title).split(/\s+/);let lines=[],l='';x.font=`800 ${w*.095}px "Bricolage Grotesque",system-ui,sans-serif`;words.forEach(wd=>{const t=l?l+' '+wd:wd;if(x.measureText(t).width>w*.8&&l){lines.push(l);l=wd}else l=t});lines.push(l);lines=lines.slice(0,3);
+ x.fillStyle='#fff';x.textBaseline='alphabetic';x.textAlign='left';const lh=w*.1;lines.forEach((s,i)=>x.fillText(s,w*.07,h-h*.12-(lines.length-1-i)*lh));
+ return GC[k]=c.toDataURL('image/jpeg',.88)}
+const iconOf=g=>g.icon&&/^data:image\//.test(g.icon)?g.icon:genIcon(g.title,160);
+const coverOf=g=>g.cover&&/^data:image\//.test(g.cover)?g.cover:genCover(g.title);
+/* ---- yükleme analizi: oyundan logo + ekran görüntüsü ---- */
+const loadImg=src=>new Promise((res,rej)=>{const i=new Image();i.onload=()=>res(i);i.onerror=rej;i.src=src});
+async function toSquare(src,size){try{const im=await loadImg(src);const c=document.createElement('canvas');c.width=c.height=size;const x=c.getContext('2d'),s=Math.min(im.naturalWidth||im.width,im.naturalHeight||im.height)||size;const iw=im.naturalWidth||im.width,ih=im.naturalHeight||im.height;x.drawImage(im,(iw-s)/2,(ih-s)/2,s,s,0,0,size,size);return c.toDataURL('image/png')}catch(e){return null}}
+function trimBox(im){const W=160,H=Math.max(1,Math.round(160*im.height/im.width)),c=document.createElement('canvas');c.width=W;c.height=H;const x=c.getContext('2d');x.drawImage(im,0,0,W,H);const d=x.getImageData(0,0,W,H).data,px=(i,j)=>{const k=(j*W+i)*4;return[d[k],d[k+1],d[k+2]]},bg=px(1,1),diff=(a)=>Math.abs(a[0]-bg[0])+Math.abs(a[1]-bg[1])+Math.abs(a[2]-bg[2])>40;
+ const colHas=i=>{let n=0;for(let j=0;j<H;j++)if(diff(px(i,j)))n++;return n>H*.04},rowHas=j=>{let n=0;for(let i=0;i<W;i++)if(diff(px(i,j)))n++;return n>W*.04};
+ let l=0,r=W-1,t=0,b=H-1;while(l<r&&!colHas(l))l++;while(r>l&&!colHas(r))r--;while(t<b&&!rowHas(t))t++;while(b>t&&!rowHas(b))b--;
+ let sum=0,sq=0,cnt=0;for(let j=t;j<=b;j+=2)for(let i=l;i<=r;i+=2){const p=px(i,j),v=(p[0]+p[1]+p[2])/3;sum+=v;sq+=v*v;cnt++}const sd=cnt?Math.sqrt(Math.max(0,sq/cnt-(sum/cnt)**2)):0;
+ const fx=im.width/W,fy=im.height/H;return{x:l*fx,y:t*fy,w:(r-l+1)*fx,h:(b-t+1)*fy,sd,ok:(r-l)>W*.15&&(b-t)>H*.15}}
+async function makeCover(shot){try{const im=await loadImg(shot),bx=trimBox(im);if(!bx.ok||bx.sd<6)return null;const W=640,H=400,c=document.createElement('canvas');c.width=W;c.height=H;const x=c.getContext('2d');
+ const t=document.createElement('canvas');t.width=24;t.height=15;const tx=t.getContext('2d');tx.drawImage(im,bx.x,bx.y,bx.w,bx.h,0,0,24,15);x.imageSmoothingEnabled=true;x.drawImage(t,-20,-20,W+40,H+40);x.fillStyle='rgba(0,0,0,.35)';x.fillRect(0,0,W,H);
+ const ar=bx.w/bx.h;let dw,dh;if(ar>W/H*.85){dw=W;dh=W/ar;if(dh<H){const s=H/dh;dw*=s;dh*=s}}else{dh=H*.94;dw=dh*ar}const dx=(W-dw)/2,dy=(H-dh)/2;
+ x.save();x.shadowColor='rgba(0,0,0,.5)';x.shadowBlur=30;x.drawImage(im,bx.x,bx.y,bx.w,bx.h,dx,dy,dw,dh);x.restore();return c.toDataURL('image/jpeg',.82)}catch(e){return null}}
+function capture(html){return new Promise(res=>{const f=document.createElement('iframe');f.className='capf';f.setAttribute('sandbox','allow-scripts');f.setAttribute('aria-hidden','true');let done=false;
+ const fin=v=>{if(done)return;done=true;removeEventListener('message',on);setTimeout(()=>f.remove(),50);res(v)},on=e=>{if(e.source===f.contentWindow&&e.data&&e.data.zcap)fin(e.data.img)};
+ addEventListener('message',on);f.srcdoc=inject(html,'__cap__',true);document.body.appendChild(f);setTimeout(()=>fin(null),9000)})}
+async function analyze(html){const doc=new DOMParser().parseFromString(html,'text/html');const title=(doc.title||'').trim().slice(0,40);
+ const desc=((doc.querySelector('meta[name="description"]')||doc.querySelector('meta[property="og:description"]')||{}).content||'').trim().slice(0,300);
+ const cands=[...doc.querySelectorAll('link[rel~="apple-touch-icon"],link[rel~="apple-touch-icon-precomposed"],link[rel~="icon"],meta[property="og:image"]')].map(e=>e.getAttribute('href')||e.getAttribute('content')).filter(h=>h&&/^data:image\//i.test(h));
+ let icon=null;for(const c of cands){icon=await toSquare(c,160);if(icon)break}
+ const shot=await capture(html);const cover=shot?await makeCover(shot):null;return{title,desc,icon,cover}}
+/* ============ OYUN ÇALIŞTIRMA (izole) ============ */
 const SKEY=id=>'zg_'+id;
-function shim(id){let d={};try{d=JSON.parse(localStorage.getItem(SKEY(id)))||{}}catch(e){}
- return '<script>(function(){var D='+JSON.stringify(d).replace(/</g,'\\u003c')+',K='+JSON.stringify(id)+';function P(){try{parent.postMessage({zs:1,k:K,d:D},"*")}catch(e){}}var S={getItem:function(k){return Object.prototype.hasOwnProperty.call(D,k)?D[k]:null},setItem:function(k,v){D[k]=String(v);P()},removeItem:function(k){delete D[k];P()},clear:function(){D={};P()},key:function(i){return Object.keys(D)[i]||null}};Object.defineProperty(S,"length",{get:function(){return Object.keys(D).length}});try{Object.defineProperty(window,"localStorage",{value:S,configurable:true})}catch(e){}var M={};try{Object.defineProperty(window,"sessionStorage",{value:{getItem:function(k){return M[k]||null},setItem:function(k,v){M[k]=String(v)},removeItem:function(k){delete M[k]},clear:function(){M={}}},configurable:true})}catch(e){}})();<\/script>'}
-function inject(html,id){const s=shim(id);if(/<head[^>]*>/i.test(html))return html.replace(/<head[^>]*>/i,m=>m+s);if(/<html[^>]*>/i.test(html))return html.replace(/<html[^>]*>/i,m=>m+s);return s+html}
-window.addEventListener('message',e=>{const d=e.data;if(!d||!d.zs||!cur)return;const fr=$('#app iframe');if(!fr||e.source!==fr.contentWindow||d.k!==cur.id)return;try{const s=JSON.stringify(d.d);if(s.length<3e6)localStorage.setItem(SKEY(d.k),s)}catch(err){}});
-async function openGame(gm){if(!gm)return;cur=gm;const a=$('#app');$('#fmenu').style.display='none';
- $('#splash').innerHTML=icHTML(gm)+`<b style="font-size:20px">${esc(gm.title)}</b><span class="spin"></span>`;$('#splash').style.opacity=1;$('#splash').style.display='flex';
- a.querySelectorAll('iframe').forEach(f=>f.remove());a.classList.add('on');history.replaceState(null,'','#oyun-'+gm.id);
- try{const h=await api.html(gm);if(cur!==gm)return;const f=document.createElement('iframe');f.setAttribute('sandbox','allow-scripts allow-pointer-lock allow-popups allow-forms allow-modals');f.setAttribute('allow','fullscreen; autoplay; gamepad; accelerometer; gyroscope');f.setAttribute('title',gm.title);f.srcdoc=inject(h,gm.id);
-  f.onload=()=>{setTimeout(()=>{$('#splash').style.opacity=0;setTimeout(()=>$('#splash').style.display='none',300)},350);try{f.focus()}catch(e){}};a.insertBefore(f,a.firstChild);api.play(gm.id);gm.plays=(gm.plays||0)+1}
- catch(e){$('#splash').innerHTML=icHTML(gm)+`<b>Oyun açılamadı</b><small style="opacity:.7;max-width:80%;text-align:center">${esc(e.message)}</small><button class="btn" style="width:auto;padding:12px 24px" onclick="closeGame()">Geri dön</button>`}}
-function closeGame(){const a=$('#app');a.classList.remove('on');cur=null;history.replaceState(null,'',location.pathname);setTimeout(()=>{if(!cur)a.querySelectorAll('iframe').forEach(f=>f.remove())},400);if(document.fullscreenElement)document.exitFullscreen().catch(()=>{})}
-/* yüzen buton */
-{const fab=$('#fab'),menu=$('#fmenu');let sx,sy,ox,oy,mv=false,down=false;
- fab.addEventListener('pointerdown',e=>{down=true;mv=false;sx=e.clientX;sy=e.clientY;const r=fab.getBoundingClientRect(),p=$('#phone').getBoundingClientRect();ox=r.left-p.left;oy=r.top-p.top;fab.setPointerCapture(e.pointerId);fab.style.opacity=1});
- fab.addEventListener('pointermove',e=>{if(!down)return;const dx=e.clientX-sx,dy=e.clientY-sy;if(Math.abs(dx)+Math.abs(dy)>6)mv=true;if(mv){const p=$('#phone').getBoundingClientRect();fab.style.left=Math.max(4,Math.min(p.width-52,ox+dx))+'px';fab.style.top=Math.max(4,Math.min(p.height-52,oy+dy))+'px';fab.style.right='auto';menu.style.display='none'}});
- fab.addEventListener('pointerup',()=>{down=false;fab.style.opacity=.75;const p=$('#phone').getBoundingClientRect(),r=fab.getBoundingClientRect();if(mv){const left=r.left-p.left<p.width/2;fab.style.left=(left?8:p.width-56)+'px';return}
-  if(menu.style.display==='block'){menu.style.display='none';return}menu.style.display='block';const mw=menu.offsetWidth,mh=menu.offsetHeight;let x=r.left-p.left,y=r.top-p.top;menu.style.left=Math.max(8,Math.min(p.width-mw-8,x<p.width/2?x+56:x-mw-8))+'px';menu.style.top=Math.max(8,Math.min(p.height-mh-8,y-mh/2+24))+'px'});
- menu.onclick=e=>{const m=e.target.dataset.m;menu.style.display='none';if(m==='close')closeGame();else if(m==='reload'&&cur)openGame(cur);else if(m==='full'){const el=$('#phone');(document.fullscreenElement?document.exitFullscreen():el.requestFullscreen?el.requestFullscreen():Promise.reject()).catch(()=>toast('Tam ekran bu cihazda desteklenmiyor. Ana ekrana eklersen tam ekran açılır.',3500))}else if(m==='share'&&cur)share(cur)}}
-/* ana ekran etkileşimleri */
-$('#list').addEventListener('click',e=>{const a=e.target.closest('.app');if(!a||a._lp)return;openGame(games.find(g=>g.id===a.dataset.id))});
-{let t=null;$('#list').addEventListener('pointerdown',e=>{const a=e.target.closest('.app');if(!a)return;a._lp=false;t=setTimeout(()=>{a._lp=true;if(navigator.vibrate)navigator.vibrate(15);infoSheet(games.find(g=>g.id===a.dataset.id))},520)});['pointerup','pointerleave','pointercancel','pointermove'].forEach(n=>$('#list').addEventListener(n,e=>{if(n==='pointermove'&&Math.abs(e.movementX)+Math.abs(e.movementY)<4)return;clearTimeout(t)}));
- $('#list').addEventListener('contextmenu',e=>{const a=e.target.closest('.app');if(a){e.preventDefault();a._lp=true;clearTimeout(t);infoSheet(games.find(g=>g.id===a.dataset.id))}})}
-$('#chips').onclick=e=>{const b=e.target.closest('[data-f]');if(b){filter=b.dataset.f;render()}};
-$('#q').oninput=e=>{query=e.target.value.trim();render()};
-$('#dock').onclick=e=>{const b=e.target.closest('[data-a]');if(!b)return;const a=b.dataset.a;if(a==='home'){closeSheet();filter='all';$('#q').value='';query='';render();$('#home').scrollTo({top:0,behavior:'smooth'})}else if(a==='upload')uploadSheet();else if(a==='mine')mineSheet();else meSheet()};
-window.addEventListener('hashchange',()=>{const m=location.hash.match(/^#oyun-(.+)$/);if(m&&(!cur||cur.id!==m[1]))openGame(games.find(g=>g.id===m[1]));else if(!m&&cur)closeGame()});
-(async()=>{try{await api.init()}catch(e){}renderMe();await load();const m=location.hash.match(/^#oyun-(.+)$/);if(m){const g=games.find(x=>x.id===m[1]);if(g)openGame(g);else toast('Bu oyun bulunamadı',3000)}})();
+function shim(id,cap){let d={};if(!cap){try{d=JSON.parse(localStorage.getItem(SKEY(id)))||{}}catch(e){}}
+ let s='<script>(function(){var D='+JSON.stringify(d).replace(/</g,'\\u003c')+',K='+JSON.stringify(id)+';function P(){try{parent.postMessage({zs:1,k:K,d:D},"*")}catch(e){}}var S={getItem:function(k){return Object.prototype.hasOwnProperty.call(D,k)?D[k]:null},setItem:function(k,v){D[k]=String(v);P()},removeItem:function(k){delete D[k];P()},clear:function(){D={};P()},key:function(i){return Object.keys(D)[i]||null}};Object.defineProperty(S,"length",{get:function(){return Object.keys(D).length}});try{Object.defineProperty(window,"localStorage",{value:S,configurable:true})}catch(e){}var M={};try{Object.defineProperty(window,"sessionStorage",{value:{getItem:function(k){return M[k]||null},setItem:function(k,v){M[k]=String(v)},removeItem:function(k){delete M[k]},clear:function(){M={}}},configurable:true})}catch(e){}';
+ if(cap)s+='window.addEventListener("load",function(){setTimeout(function(){var img=null;try{var cs=[].slice.call(document.querySelectorAll("canvas")).sort(function(a,b){return b.width*b.height-a.width*a.height});if(cs[0]&&cs[0].width>40)img=cs[0].toDataURL("image/jpeg",.85)}catch(e){}parent.postMessage({zcap:1,img:img},"*")},2400)});';
+ return s+'})();<\/script>'}
+function inject(html,id,cap){const s=shim(id,cap);if(/<head[^>]*>/i.test(html))return html.replace(/<head[^>]*>/i,m=>m+s);if(/<html[^>]*>/i.test(html))return html.replace(/<html[^>]*>/i,m=>m+s);return s+html}
+addEventListener('message',e=>{const d=e.data;if(!d||!d.zs||!cur)return;const fr=$('#stage iframe');if(!fr||e.source!==fr.contentWindow||d.k!==cur.id)return;try{const s=JSON.stringify(d.d);if(s.length<3e6)localStorage.setItem(SKEY(d.k),s)}catch(err){}});
+/* ============ ARAYÜZ ============ */
+const toast=(t,ms)=>{const e=$('#toast');e.textContent=t;e.classList.add('on');clearTimeout(e._t);e._t=setTimeout(()=>e.classList.remove('on'),ms||2600)};
+const isNew=g=>Date.now()-new Date(g.created_at)<3*864e5;
+const fmt=n=>n>=1e6?(n/1e6).toFixed(1).replace('.0','')+' Mn':n>=1e3?(n/1e3).toFixed(1).replace('.0','')+' B':String(n||0);
+function renderAuth(){$('#authbox').innerHTML=me?`<button class="av" data-act="me" title="${esc(uname(me))}">${esc((uname(me)[0]||'?').toLocaleUpperCase('tr'))}</button>`:`<button class="btn sec" data-act="login">Giriş yap</button>`}
+function card(g,i){return`<a class="card" href="#oyun-${esc(g.id)}" style="animation-delay:${Math.min(i||0,16)*30}ms"><div class="cv"><img src="${coverOf(g)}" alt="${esc(g.title)}" loading="lazy">${isNew(g)?'<span class="nw">YENİ</span>':''}<div class="pl"><span>${IC.play}</span></div></div><div class="mt"><img src="${iconOf(g)}" alt=""><div><b>${esc(g.title)}</b><small>${esc(g.author||'')} · ${fmt(g.plays)} oynanma</small></div></div></a>`}
+function filtered(){let l=games.slice();if(query){const q=query.toLocaleLowerCase('tr');l=l.filter(g=>(g.title+' '+(g.author||'')+' '+(g.description||'')).toLocaleLowerCase('tr').includes(q))}
+ if(tab==='top')l.sort((a,b)=>(b.plays||0)-(a.plays||0));else if(tab==='new')l=l.filter(isNew);return l}
+function renderHome(){
+ $$('[data-tab]').forEach(b=>b.classList.toggle('on',b.dataset.tab===tab));
+ $('#sectitle').textContent=query?'“'+query+'” için sonuçlar':tab==='new'?'Yeni eklenenler':tab==='top'?'En popüler':'Tüm oyunlar';
+ const f=games.slice().sort((a,b)=>(b.plays||0)-(a.plays||0))[0];
+ if(f&&!query){$('#hero').innerHTML=`<div class="hero"><div class="bgimg" style="background-image:url('${coverOf(f)}')"></div><div class="ht"><span class="tag">● Öne çıkan</span><h1>${esc(f.title)}</h1>${f.description?`<p>${esc(f.description)}</p>`:''}<div class="by"><img src="${iconOf(f)}" alt="">${esc(f.author||'')} · ${fmt(f.plays)} oynanma</div><div class="hb"><a class="btn acc lg" href="#oyun-${esc(f.id)}">${IC.playS}Hemen oyna</a></div></div><div class="hc"><a class="cv" href="#oyun-${esc(f.id)}"><img src="${coverOf(f)}" alt="${esc(f.title)}"></a></div></div>`}
+ else if(!games.length){$('#hero').innerHTML=`<div class="hero intro"><div class="ht"><span class="tag">● Yeni</span><h1>İndirme yok.<br>Üyelik yok.<br><span>Sadece oyna.</span></h1><p>Bağımsız yapımcıların tarayıcı oyunları tek yerde. Telefonda ve bilgisayarda tek tıkla.</p></div></div>`}
+ else $('#hero').innerHTML='';
+ const l=filtered();
+ $('#grid').innerHTML=!games.length?`<div class="empty"><b>Henüz oyun yok</b>İlk oyunu sen yükle, vitrinin en başında yer al.<div style="margin-top:18px"><button class="btn acc" data-act="upload">Oyun yükle</button></div></div>`:!l.length?`<div class="empty"><b>Sonuç bulunamadı</b>Başka bir şey aramayı dene.</div>`:`<div class="grid">${l.map(card).join('')}</div>`}
+async function load(){try{games=await api.list()}catch(e){toast('Oyunlar yüklenemedi: '+e.message,4000)}renderHome()}
+/* modal */
+function modal(html,after){$('#md').innerHTML=`<button class="ibtn x" data-close aria-label="Kapat">${IC.x}</button>`+html;$('#md').scrollTop=0;$('#ov').classList.add('on');document.body.classList.add('lock');if(after)after()}
+function closeModal(){$('#ov').classList.remove('on');if(!document.body.classList.contains('playing'))document.body.classList.remove('lock')}
+$('#ov').addEventListener('click',e=>{if(e.target===$('#ov')||e.target.closest('[data-close]'))closeModal()});
+addEventListener('keydown',e=>{if(e.key==='Escape'&&$('#ov').classList.contains('on'))closeModal();else if(e.key==='/'&&document.activeElement.tagName!=='INPUT'&&document.activeElement.tagName!=='TEXTAREA'){e.preventDefault();$('#q').focus()}});
+{let sy=null;const m=$('#md');m.addEventListener('touchstart',e=>{if(m.scrollTop<=0)sy=e.touches[0].clientY},{passive:true});m.addEventListener('touchmove',e=>{if(sy!=null&&e.touches[0].clientY-sy>100){sy=null;closeModal()}},{passive:true});m.addEventListener('touchend',()=>sy=null)}
+/* hesap */
+function authModal(mode,then){mode=mode||'in';
+ modal(`<h2>${mode==='in'?'Tekrar hoş geldin':'Hesap oluştur'}</h2><p class="sub">Oynamak için hesap gerekmez. Oyun yüklemek için giriş yap.</p>
+ <div class="seg"><button class="${mode==='in'?'on':''}" data-m="in">Giriş yap</button><button class="${mode==='up'?'on':''}" data-m="up">Kayıt ol</button></div>
+ <form id="af">${mode==='up'?'<label class="fl" for="au">Kullanıcı adı</label><input class="in" id="au" maxlength="20" required autocomplete="nickname">':''}
+ <label class="fl" for="ae">E-posta</label><input class="in" id="ae" type="email" required autocomplete="email">
+ <label class="fl" for="ap">Şifre</label><input class="in" id="ap" type="password" required minlength="6" autocomplete="${mode==='in'?'current-password':'new-password'}">
+ <div class="err" id="aerr"></div><button class="btn acc lg full" id="ab">${mode==='in'?'Giriş yap':'Hesap oluştur'}</button></form>`,()=>{
+  $$('#md [data-m]').forEach(b=>b.onclick=()=>authModal(b.dataset.m,then));
+  $('#af').onsubmit=async e=>{e.preventDefault();const b=$('#ab'),lbl=b.textContent;b.disabled=true;b.innerHTML='<span class="spin"></span>';$('#aerr').textContent='';
+   try{const em=$('#ae').value.trim(),pw=$('#ap').value;
+    if(mode==='up'){const u=$('#au').value.trim();if(u.length<2)throw new Error('Kullanıcı adı en az 2 karakter olmalı.');const need=await api.signUp(em,pw,u);if(need){modal(`<h2>E-postanı kontrol et</h2><p class="sub"><b>${esc(em)}</b> adresine bir onay bağlantısı gönderdik. Onayladıktan sonra giriş yapabilirsin.</p><button class="btn acc lg full" id="ok">Tamam</button>`,()=>$('#ok').onclick=()=>authModal('in',then));return}}
+    else await api.signIn(em,pw);
+    renderAuth();renderHome();closeModal();toast('Hoş geldin, '+uname(me));if(then)setTimeout(then,250)}
+   catch(err){$('#aerr').textContent=err.message;b.disabled=false;b.textContent=lbl}}})}
+function meModal(){if(!me)return authModal('in',meModal);
+ const mine=isAdmin()?games:games.filter(g=>g.owner===me.id),own=games.filter(g=>g.owner===me.id),plays=own.reduce((a,g)=>a+(g.plays||0),0),miss=mine.filter(g=>!g.cover);
+ modal(`<div class="prof"><div class="av">${esc((uname(me)[0]||'?').toLocaleUpperCase('tr'))}</div><div><h2 style="margin:0">${esc(uname(me))}</h2><div style="color:var(--mut);font-size:14px">${esc(me.email||'')}${isAdmin()?' · Yönetici':''}</div><div style="color:var(--mut);font-size:14px">${own.length} oyun · ${fmt(plays)} oynanma</div></div></div>
+ <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px"><b>${isAdmin()?'Tüm oyunlar':'Oyunlarım'}</b>${miss.length?`<button class="sm" id="fixall">Eksik kapakları oluştur (${miss.length})</button>`:''}</div>
+ ${mine.length?mine.map(g=>`<div class="li"><img src="${iconOf(g)}" alt=""><div><b>${esc(g.title)}</b><small>${esc(g.author||'')} · ${fmt(g.plays)} oynanma</small></div><button class="sm" data-e="${esc(g.id)}">Düzenle</button></div>`).join(''):'<p class="sub" style="margin:14px 0">Henüz oyun yüklemedin.</p>'}
+ <div class="row"><button class="btn acc" data-act="upload">Oyun yükle</button><button class="btn sec" id="lo">Çıkış yap</button></div>`,()=>{
+  $$('#md [data-e]').forEach(b=>b.onclick=()=>editModal(games.find(g=>g.id===b.dataset.e)));
+  $('#lo').onclick=async()=>{await api.signOut();renderAuth();renderHome();closeModal();toast('Çıkış yapıldı')};
+  if($('#fixall'))$('#fixall').onclick=async()=>{const b=$('#fixall');b.disabled=true;let n=0;for(const g of miss){b.textContent='Hazırlanıyor '+(++n)+'/'+miss.length;try{const a=await analyze(await api.html(g));await api.update(g,{title:g.title,description:g.description||'',icon:a.icon||g.icon,cover:a.cover||genCover(g.title)})}catch(e){}}await load();toast('Kapaklar hazır');meModal()}})}
+/* yükle */
+function uploadModal(){if(!me)return authModal('in',uploadModal);
+ const st={file:null,a:null};
+ const step1=()=>modal(`<h2>Oyun yükle</h2><p class="sub">Tek dosyalık HTML oyununu seç. Logoyu ve kapak görselini oyundan otomatik hazırlıyoruz.</p>
+  <label class="drop" id="dz"><input type="file" id="uf" accept=".html,.htm,text/html" hidden><span class="di">${IC.up}</span><b>HTML dosyasını seç ya da sürükle</b><span>.html · en fazla 5 MB</span></label><div class="err" id="uerr"></div>`,()=>{
+  const dz=$('#dz');['dragenter','dragover'].forEach(n=>dz.addEventListener(n,e=>{e.preventDefault();dz.classList.add('hv')}));['dragleave','drop'].forEach(n=>dz.addEventListener(n,e=>{e.preventDefault();dz.classList.remove('hv')}));
+  dz.addEventListener('drop',e=>{const f=e.dataTransfer.files[0];if(f)take(f)});$('#uf').onchange=()=>{const f=$('#uf').files[0];if(f)take(f)}});
+ const take=async f=>{if(f.size>MAXF){$('#uerr').textContent='Dosya 5 MB’tan büyük.';return}const html=await f.text();if(!/<(html|script|canvas|body|div)/i.test(html)){$('#uerr').textContent='Bu bir HTML oyun dosyası gibi görünmüyor.';return}
+  st.file=f;modal(`<h2>Hazırlanıyor</h2><p class="sub">Oyun açılıp logosu ve ekran görüntüsü alınıyor…</p><div class="loading" style="position:relative;height:220px;border-radius:16px;background:var(--card)"><div class="bar"><i></i></div></div>`);
+  try{st.a=await analyze(html)}catch(e){st.a={title:'',desc:'',icon:null,cover:null}}if(!st.a.title)st.a.title=f.name.replace(/\.html?$/i,'').slice(0,40);step2()};
+ const step2=()=>{const a=st.a;modal(`<h2>Yayınlamaya hazır</h2><p class="sub">Adı ve açıklamayı kontrol et.</p>
+  <div class="prev"><div class="cv"><img id="pcv" src="${a.cover||genCover(a.title)}" alt=""></div><div class="pm"><img id="pic" src="${a.icon||genIcon(a.title,160)}" alt=""><div><b id="pt">${esc(a.title)}</b><div style="color:var(--mut);font-size:13px">${esc(uname(me))}</div></div></div></div>
+  <div class="note"><i class="${a.icon?'':'w'}"></i>${a.icon?'Logo oyunun içinden alındı.':'Oyunda logo bulunamadı; adından özel bir logo üretildi.'}</div>
+  <div class="note"><i class="${a.cover?'':'w'}"></i>${a.cover?'Kapak, oyunun ekran görüntüsünden hazırlandı.':'Ekran görüntüsü alınamadı; adından özel bir kapak üretildi.'}</div>
+  <label class="fl" for="ut">Oyun adı</label><input class="in" id="ut" maxlength="40" value="${esc(a.title)}">
+  <label class="fl" for="ud">Açıklama</label><textarea class="in" id="ud" maxlength="300" placeholder="Oyun ne hakkında, nasıl oynanır?">${esc(a.desc)}</textarea>
+  <div class="err" id="uerr"></div><div class="row"><button class="btn sec" id="ub0">Başka dosya</button><button class="btn acc" id="ub">Yayınla</button></div>`,()=>{
+   $('#ut').oninput=()=>{const t=$('#ut').value.trim()||'Oyun';$('#pt').textContent=t;if(!a.icon)$('#pic').src=genIcon(t,160);if(!a.cover)$('#pcv').src=genCover(t)};
+   $('#ub0').onclick=step1;
+   $('#ub').onclick=async()=>{const title=$('#ut').value.trim();if(!title){$('#uerr').textContent='Oyuna bir ad ver.';return}const b=$('#ub');b.disabled=true;b.innerHTML='<span class="spin"></span>';
+    try{await api.create({title,description:$('#ud').value.trim(),icon:a.icon||genIcon(title,160),cover:a.cover||genCover(title)},st.file);await load();closeModal();toast('Oyunun yayında!')}catch(e){$('#uerr').textContent=e.message;b.disabled=false;b.textContent='Yayınla'}}})};
+ step1()}
+function editModal(g){if(!g||!canEdit(g))return;
+ modal(`<h2>Oyunu düzenle</h2><p class="sub">${esc(g.title)}</p>
+ <div class="prev"><div class="cv"><img id="pcv" src="${coverOf(g)}" alt=""></div><div class="pm"><img id="pic" src="${iconOf(g)}" alt=""><div><b>${esc(g.title)}</b><div style="color:var(--mut);font-size:13px">${esc(g.author||'')}</div></div></div></div>
+ <div class="row"><button class="btn sec" id="ere">Logo ve kapağı yenile</button><label class="btn sec" style="cursor:pointer">Dosyayı değiştir<input type="file" id="ef" accept=".html,.htm,text/html" hidden></label></div>
+ <div class="note" id="enote" style="display:none"></div>
+ <label class="fl" for="et">Oyun adı</label><input class="in" id="et" maxlength="40" value="${esc(g.title)}">
+ <label class="fl" for="ed">Açıklama</label><textarea class="in" id="ed" maxlength="300">${esc(g.description||'')}</textarea>
+ <div class="err" id="eerr"></div><button class="btn acc lg full" id="es">Kaydet</button><button class="btn dng lg full" id="ex" style="margin-top:10px">Oyunu sil</button>`,()=>{
+  const st={file:null,icon:undefined,cover:undefined};
+  const re=async html=>{const n=$('#enote');n.style.display='flex';n.innerHTML='<span class="spin" style="color:var(--acc)"></span>Oyun inceleniyor…';const a=await analyze(html);st.icon=a.icon||genIcon($('#et').value||g.title,160);st.cover=a.cover||genCover($('#et').value||g.title);$('#pic').src=st.icon;$('#pcv').src=st.cover;n.innerHTML='<i></i>Yeni logo ve kapak hazır. Kaydetmeyi unutma.'};
+  $('#ere').onclick=async()=>{try{await re(st.file?await st.file.text():await api.html(g))}catch(e){$('#eerr').textContent=e.message}};
+  $('#ef').onchange=async()=>{const f=$('#ef').files[0];if(!f)return;if(f.size>MAXF){$('#eerr').textContent='Dosya 5 MB’tan büyük.';return}st.file=f;await re(await f.text())};
+  $('#es').onclick=async()=>{const title=$('#et').value.trim();if(!title){$('#eerr').textContent='Oyuna bir ad ver.';return}const b=$('#es');b.disabled=true;b.innerHTML='<span class="spin"></span>';
+   try{await api.update(g,{title,description:$('#ed').value.trim(),icon:st.icon,cover:st.cover},st.file);await load();closeModal();toast('Kaydedildi');if(cur&&cur.id===g.id)openGame(games.find(x=>x.id===g.id),true)}catch(e){$('#eerr').textContent=e.message;b.disabled=false;b.textContent='Kaydet'}};
+  $('#ex').onclick=()=>modal(`<h2>Oyun silinsin mi?</h2><p class="sub"><b>${esc(g.title)}</b> kalıcı olarak silinecek. Bu işlem geri alınamaz.</p><div class="row"><button class="btn sec" id="dn">Vazgeç</button><button class="btn dng" id="dy" style="background:var(--red);color:#fff">Evet, sil</button></div>`,()=>{
+   $('#dn').onclick=()=>editModal(g);$('#dy').onclick=async()=>{$('#dy').disabled=true;try{await api.remove(g);if(cur&&cur.id===g.id)go('');await load();closeModal();toast('Oyun silindi')}catch(e){toast(e.message,4000);$('#dy').disabled=false}}})})}
+function aboutModal(){modal(`<h2>zyne nedir?</h2><p class="sub">zyne, tarayıcıda çalışan oyunların buluşma noktası. İndirme ya da kurulum yok; bir oyuna dokun, hemen başlasın.</p>
+ <p style="color:var(--mut);margin:0 0 12px">Oyun geliştiriyorsan tek dosyalık HTML oyununu yükleyebilirsin. Logo ve kapak görselini oyundan otomatik hazırlıyoruz. Her oyun güvenli, izole bir alanda çalışır; oyunlar hesabına ya da diğer verilere erişemez.</p>
+ <p style="color:var(--mut);margin:0">Telefonda tarayıcı menüsünden <b style="color:var(--txt)">Ana Ekrana Ekle</b> dersen zyne bir uygulama gibi açılır.</p><button class="btn acc lg full" style="margin-top:20px" data-act="upload">Oyun yükle</button>`)}
+/* ============ OYUN SAYFASI ============ */
+function go(h){if(h)location.hash=h;else{history.pushState(null,'',location.pathname);route()}}
+function share(g){const u=location.origin+'/#oyun-'+g.id;if(navigator.share&&matchMedia('(max-width:820px)').matches)navigator.share({title:g.title+' — zyne',url:u}).catch(()=>{});else(navigator.clipboard?navigator.clipboard.writeText(u):Promise.reject()).then(()=>toast('Bağlantı kopyalandı'),()=>prompt('Bağlantı:',u))}
+async function openGame(g,force){if(!g){toast('Oyun bulunamadı');go('');return}if(cur&&cur.id===g.id&&!force)return;cur=g;
+ document.body.classList.add('playing');window.scrollTo(0,0);document.title=g.title+' — zyne · Ücretsiz Oyna';
+ $('#picon').src=iconOf(g);$('#ptitle').textContent=g.title;$('#pby').textContent=(g.author||'')+' tarafından';$('#pdesc').textContent=g.description||'Bu oyun için açıklama eklenmemiş.';
+ $('#pstats').innerHTML=`<span><b>${fmt((g.plays||0)+1)}</b> oynanma</span><span><b>${new Date(g.created_at).toLocaleDateString('tr-TR',{day:'numeric',month:'long',year:'numeric'})}</b></span>`;
+ $('#pedit').style.display=canEdit(g)?'':'none';
+ $('#moregrid').innerHTML=games.filter(x=>x.id!==g.id).slice(0,8).map(card).join('');$('#pmore').style.display=games.length>1?'':'none';
+ const st=$('#stage');st.querySelectorAll('iframe').forEach(f=>f.remove());const ld=$('#loading');ld.style.display='flex';ld.style.opacity=1;ld.innerHTML=`<img src="${iconOf(g)}" alt=""><b>${esc(g.title)}</b><div class="bar"><i></i></div>`;
+ try{const h=await api.html(g);if(cur!==g)return;const f=document.createElement('iframe');f.setAttribute('sandbox','allow-scripts allow-pointer-lock allow-popups allow-forms allow-modals');f.setAttribute('allow','fullscreen; autoplay; gamepad; accelerometer; gyroscope');f.setAttribute('title',g.title);f.srcdoc=inject(h,g.id,false);
+  f.onload=()=>{setTimeout(()=>{ld.style.opacity=0;setTimeout(()=>ld.style.display='none',300)},300);try{f.focus()}catch(e){}};st.insertBefore(f,st.firstChild);api.play(g.id);g.plays=(g.plays||0)+1}
+ catch(e){ld.innerHTML=`<img src="${iconOf(g)}" alt=""><b>Oyun açılamadı</b><small style="color:var(--mut)">${esc(e.message)}</small><button class="btn sec" onclick="go('')">Geri dön</button>`}}
+function closeGame(){cur=null;document.body.classList.remove('playing','lock');document.title='zyne — Ücretsiz Tarayıcı Oyunları · İndirmeden Hemen Oyna';$('#fmenu').style.display='none';setTimeout(()=>{if(!cur)$$('#stage iframe').forEach(f=>f.remove())},50);if(document.fullscreenElement)document.exitFullscreen().catch(()=>{})}
+function route(){const m=location.hash.match(/^#oyun-(.+)$/);if(m)openGame(games.find(g=>g.id===m[1]));else if(cur)closeGame()}
+addEventListener('hashchange',route);
+$('#pback').onclick=()=>go('');
+$('#pshare').onclick=()=>cur&&share(cur);$('#pedit').onclick=()=>cur&&editModal(cur);
+$('#pfull').onclick=()=>{const s=$('#stage');(s.requestFullscreen?s.requestFullscreen():s.webkitRequestFullscreen?Promise.resolve(s.webkitRequestFullscreen()):Promise.reject()).catch(()=>toast('Tam ekran desteklenmiyor'))};
+/* mobil yüzen menü */
+{const fab=$('#fab'),menu=$('#fmenu');let sx,sy,ox,oy,mv=false,dn=false;
+ fab.addEventListener('pointerdown',e=>{dn=true;mv=false;sx=e.clientX;sy=e.clientY;const r=fab.getBoundingClientRect();ox=r.left;oy=r.top;fab.setPointerCapture(e.pointerId);fab.style.opacity=1});
+ fab.addEventListener('pointermove',e=>{if(!dn)return;const dx=e.clientX-sx,dy=e.clientY-sy;if(Math.abs(dx)+Math.abs(dy)>6)mv=true;if(mv){fab.style.left=Math.max(4,Math.min(innerWidth-48,ox+dx))+'px';fab.style.top=Math.max(4,Math.min(innerHeight-48,oy+dy))+'px';menu.style.display='none'}});
+ fab.addEventListener('pointerup',()=>{dn=false;fab.style.opacity='';const r=fab.getBoundingClientRect();if(mv){fab.style.left=(r.left<innerWidth/2?12:innerWidth-56)+'px';return}
+  if(menu.style.display==='block'){menu.style.display='none';return}menu.style.display='block';const mw=menu.offsetWidth,mh=menu.offsetHeight;menu.style.left=Math.max(8,Math.min(innerWidth-mw-8,r.left<innerWidth/2?r.left:r.right-mw))+'px';menu.style.top=Math.max(8,Math.min(innerHeight-mh-8,r.bottom+8))+'px'});
+ menu.onclick=e=>{const b=e.target.closest('[data-m]');if(!b)return;menu.style.display='none';const m=b.dataset.m;if(m==='close')go('');else if(m==='reload'&&cur)openGame(cur,true);else if(m==='share'&&cur)share(cur)}}
+/* genel tıklamalar */
+document.addEventListener('click',e=>{const a=e.target.closest('[data-act]');if(a){e.preventDefault();const t=a.dataset.act;if(t==='upload')uploadModal();else if(t==='login')authModal('in');else if(t==='me')meModal();else if(t==='about')aboutModal();return}
+ const gh=e.target.closest('[data-go="home"]');if(gh){e.preventDefault();tab='all';query='';$('#q').value=$('#q2').value='';if(cur)go('');renderHome();window.scrollTo({top:0,behavior:'smooth'});return}
+ const tb=e.target.closest('[data-tab]');if(tb){tab=tb.dataset.tab;if(cur)go('');renderHome();if(tb.closest('nav'))document.querySelector('.sh').scrollIntoView({behavior:'smooth',block:'start'})}});
+const onQ=v=>{query=v.trim();if(cur)go('');renderHome()};$('#q').oninput=e=>onQ(e.target.value);$('#q2').oninput=e=>onQ(e.target.value);
+$('#msbtn').onclick=()=>{const m=$('#msearch');m.classList.toggle('on');if(m.classList.contains('on'))$('#q2').focus()};
+$('#yr').textContent=new Date().getFullYear();
+(async()=>{try{await api.init()}catch(e){}renderAuth();await load();route()})();
 </script>
 </body>
 </html>
